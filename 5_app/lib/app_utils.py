@@ -58,7 +58,6 @@ project_types = ['Environment', 'Props', '3Dscans', 'Characters']      # in ui b
 
 
 
-
 #************************************************
 # PROJECT TYPES
 project_type_dir = {
