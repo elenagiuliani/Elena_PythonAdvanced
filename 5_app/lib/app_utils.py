@@ -20,39 +20,39 @@ yaml.preserve_quotes = True
 # current directory
 CURRENT_DIR = os.path.dirname(__file__)
 
+
+"""
+WHY THE CONFIGURATION FILE WOULD IMPROVE THIS MODULE
+
+The yaml file manages the project configuration all in one place.
+
+The user can set a directory that will contain the projects.
+If the user need to change a DCC (3dsMax instead of maya) or any category can overwrite the existing elements (problem to update the ui? maybe not with classes)
+
+Two variables of the yaml file will change when triggered by the ui inputs:   - selected_project      --> the project the user decides to work on
+                                                                              - cgtrader_project_name --> the final name of the project to sell on marketplace (can change without damaging linked files, like maya references)
+
+"""
 # path to projects yml
-YML_MAIN_PATH = os.path.join(CURRENT_DIR, 'config', 'projects', 'project.yml')
+YML_PROJECT_PATH = os.path.join(CURRENT_DIR, '..', 'config', 'projects', 'project.yml')
 
 # load main paths
-with open(YML_MAIN_PATH, 'r', encoding='utf-8') as stream:
-    main_data = yaml.load(stream)
-PIXELSANDCRAFTS_DIR = main_data['PixelsAndCrafts']
-loaded_project_full_name = main_data['selected_project']
-#************************************************
+with open(YML_PROJECT_PATH, 'r', encoding='utf-8') as stream:
+    project_data = yaml.load(stream)
+PIXELSANDCRAFTS_DIR = project_data['PixelsAndCrafts']
 
+loaded_project_full_name = project_data['selected_project']
+cgtrader_project_name = project_data['cgtrader_project_name']
 
-# keep these updated to add/remove software or maya tasks
-env_categories = ['Architectural', 'Props', 'Lamps', '']
-maya_tasks = ['model', 'baking', 'rig', 'pose', 'anim']
-softwares = ['maya', 'SP', 'ZB', 'SD', 'RealityScan']
+project_types = project_data['project_types']
 
+env_categories = project_data['env_categories']
+maya_tasks = project_data['maya_tasks']
+softwares = project_data['softwares']
 
-# CGTRADER
-sub_folders_static_render = ['LODs', 'maya']
-shader_types = ['Textures/RoughMetal', 'Textures/UnrealEngine']
-texture_resolutions = ['1k', '2k', '4k']
-
-sub_folders_ue = ['Meshes', 'Materials']
-
-
-# PROJECT TYPES
-project_types = ['Environment', 'Props', '3Dscans', 'Characters']      # in ui button list
-
-
-
-
-
-
+sub_folders_ue = project_data['sub_folders_ue']
+texture_resolutions = project_data['texture_resolutions']
+sub_folders_static_render = project_data['sub_folders_static_render']
 
 
 
@@ -64,7 +64,7 @@ project_type_dir = {
     "environment_sets"   : PIXELSANDCRAFTS_DIR         + '/' + project_types[0],
     "props"              : PIXELSANDCRAFTS_DIR         + '/' + project_types[1],
     "scans"              : PIXELSANDCRAFTS_DIR         + '/' + project_types[2],
-    "characters"         : main_data["Characters"]     + '/' + project_types[3]
+    "characters"         : project_data["Characters"]     + '/' + project_types[3]
 }
 #************************************************
 # DETERMINE project type by selecting an option (link a button to each indices of project_types variable)
@@ -72,10 +72,8 @@ selected_project_type = project_type_dir['environment_sets']          # link to 
 print(f'\nselected project type:    {selected_project_type}\n')     #eg:  F:/3D_Projects/5_PixelsAndCrafts/Props
 
 
-
 project_type = selected_project_type.split('/')[-1]
 print(f"project_type:    {selected_project_type.split('/')[-1]}")    # eg:  project_type:    Props
-
 
 
 # list of projects in type directory
@@ -93,10 +91,13 @@ print(f'projects_in_dir:    {projects_in_dir}\n')        # eg:  projects_in_dir:
 #***************************************************************
 #***************************************************************
 """
-# selected project
-main_data["selected_project"] = projects_in_dir[1]    # link to ui button to choose and load project\   "LOAD PROJECT" BUTTON
-with open(YML_MAIN_PATH, 'w') as outfile:
-    yaml.dump(main_data, outfile)
+# new loaded project based on selection in ui
+project_data["selected_project"] = projects_in_dir[2]    # link to ui button to choose and load project\   "LOAD PROJECT" BUTTON
+
+
+# update the yaml file
+with open(YML_PROJECT_PATH, 'w') as outfile:
+    yaml.dump(project_data, outfile)
 
 
 
@@ -108,7 +109,7 @@ with open(YML_MAIN_PATH, 'w') as outfile:
 #***************************************************************
 """
 # dir of the loaded project
-loaded_project_path = f'{selected_project_type}/{loaded_project_full_name}'
+loaded_project_path = os.path.join(selected_project_type, loaded_project_full_name)
 
 # loaded project name
 loaded_project_name = loaded_project_full_name.split('__')[-1]
@@ -124,291 +125,343 @@ print(f"loaded project code:    {loaded_project_code}\n")  # eg:  loaded project
 
 
 
-
-
-
-
-
-
-
 """
+WHY A CLASS WOULD IMPROVE THIS MODULE
+
+- less lines of code
+- extensible and flexible
+- be sure that the class items are in the generated objects
+
+************************************************
+WHY CHILD CLASSES
+
+- there is shared logic between the parent class and its child classes, where the parent class handles the main shared logic
+- consistency between the objects and child classes as they share the same logic
+- create objects that can manage a variety of items
+
+************************************************
+HOW IT WORKS
+Three different but related systems for managing directory trees:   - FilesDirectoryManager            --> contains the files that makes the assets
+                                                                    - UnrealEngineDirectoriesManager   --> contains the assets exported from files (eg: in fbx, png)
+                                                                    - CgTraderDirectoryManager         --> contains the final assets after "publish" confirmation of the assets in UnrealEngineDirectories
+                                                                                                           (uassets and fbx, for Unreal Engine or static render ends)
+in short:  Files Directory   -->   Unreal Engine Directory (with manual import in engine)   -->   CgTrader Directory (files to sell on marketplace)
+
+This way it is easy to add possible new directories and manage them
+
+************************************************
+WORKFLOW                                                       
+Shared class functions:   - filtered_directories  --> filters the list from assemble_directories keeping only the directories that match the keyword inserted in the parameter when creating the object
+
+                          - create_directory  --> used for creating directories when the project is set
+                          - get_directory   --> used to get the directories for exporting assets
+
+Unique class functions in the child classes:    assemble_directories  --> generate a list of all the directories expected
+                                                finalize  --> it access and executes the class functions in the parent class (filtered_directories and create_directory)
+
+in short:   when creating an object -->     assemble_directories -> finalize (filtered_directories -> create_directory)
+
+#**********************************************
+EXAMPLES
+
+Return directory path for:
+cgtrader = CgTraderDirectoryManager(folder_filter='meshes',  feedback_label='').get_directory()
+output:
+['F:/3D_Projects/5_PixelsAndCrafts/Props/P_25_001__1970_ceramic_set\\cgtrader\\v04\\Fast and Furious\\Fast and Furious_UE\\Meshes']
+
+Of all the paths in cgtrader I get the one for Meshes like expected, because I applied to filter directories with "meshes" when crating the object.
+Now I can use the path when exporting the fbx meshes.
+
 #***************************************************************
 #***************************************************************
-# FOR FILES DIR
-# MAKE DIRECTORIES OR GET DIRECTORY PATH
+# PARENT CLASS
+# FOR CREATING DIRECTORY AND GETTING DIRECTORY PATH
 #***************************************************************
 #***************************************************************
+
+loaded_project_path / custom_add
+eg:   loaded_project_path = F:/3D_Projects/5_PixelsAndCrafts/Environment/E_25_002__The_Haunting_Of_Hill_House
+      custom_add  = UE/Meshes
 """
+class BaseDirectoryManager:
 
-class PipelineDirectoryManager:
-    def __init__(self, env_category='', software='', maya_task='', feedback_label='', make_dir=False):
-        # normalized filters
-        self.env_category = env_category.lower().strip()       # the strip() method removes any leading, and trailing whitespaces
-        self.software = software.lower().strip()
-        self.maya_task = maya_task.lower().strip()
+    def __init__(self, custom_add='', feedback_label=''):
 
+        self.custom_add = [custom_add]
         self.feedback_label = feedback_label
-        self.make_dir = make_dir
 
-#***************************************************************
-        # command
-        self.dirs = self.process_directories()
-
+#*****************************************************************************
     def assemble_directories(self):
-        base_dir_files = os.path.join(loaded_project_path, 'files')
         alldirs = []
-
-        for category in env_categories:
-            if self.env_category != '':
-                for sw in softwares:
-                    if sw.lower() == 'maya':
-                        if category:
-                            maya_base = os.path.join(base_dir_files, category, 'maya')
-                        else:
-                            maya_base = os.path.join(base_dir_files, 'maya')
-                        for task in maya_tasks:
-                            alldirs.append(os.path.join(maya_base, task))
-                    else:
-                        if category:
-                            dir_path = os.path.join(base_dir_files, category, sw)
-                        else:
-                            dir_path = os.path.join(base_dir_files, sw)
-                        alldirs.append(dir_path)
-            else:
-                print('\nNOT CATEGORY')
-                for sw in softwares:
-                    if sw.lower() == 'maya':
-                        maya_base = os.path.join(base_dir_files, 'maya')
-                        for task in maya_tasks:
-                            alldirs.append(os.path.join(maya_base, task))
-                    else:
-                        dir_path = os.path.join(base_dir_files, sw)
-                        alldirs.append(dir_path)
-
-        return alldirs, base_dir_files
-
-    # filter dirs
-    def filtered_dirs(self):
-        alldirs, base_dir_files = self.assemble_directories()
-        print(f'base:   {base_dir_files}')
+        base_dir = loaded_project_path
         
+        for d in self.custom_add:
+            alldirs.append(os.path.join(base_dir, d))
+
+        return alldirs, base_dir
+#*****************************************************************************
+    # filter directories
+    def filtered_directories(self, filters):
+        alldirs, base_dir = self.assemble_directories()
+
         matched = []
         for d in alldirs:
-            # used Copilot! Review this part
-            rel = os.path.relpath(d, base_dir_files)
-            parts = [p.lower() for p in rel.split(os.sep) if p]
-            #print(f'parts:   {parts}\n')
+            rel = os.path.relpath(d, base_dir)     # os.path.relpath()  -->  rel:   maya\model
 
-            if self.env_category and self.env_category not in parts:
-                continue
-            if self.software and self.software not in parts:
-                continue
-            if self.maya_task and self.maya_task not in parts:
-                continue
+            parts = []
+            for p in rel.split(os.sep):      # os.sep  -->  is the path separator character (windows: backslash \,  linux, unix, mac:forward /)
+                if p:
+                    parts.append(p.lower())
 
-            matched.append(d)
+            skip = False                    # assumes there is a match
+            for f in filters:
+                if f and f not in parts:    # but if there is not a match
+                    skip = True             # breaks the loop
+                    break
+
+            if not skip:                    # if there is a match append the matching directory
+                matched.append(d)
+
         return matched
 
 #***************************************************************
-#***************************************************************
-    # COMMAND MAKE DIRS OR GET DIR PATH
-    def process_directories(self):
-        final_dirs = self.filtered_dirs()
+    # CREATE THE DIRECTORIES
+    def create_directory(self):
+        filters = []
 
-        #print(f'\nfinal dirs:   {final_dirs}')
-#*****************************************************************************
-        # MAKE THE DIRECTORIES
-        if self.make_dir == True:
-
-            for d in final_dirs:
-                if not os.path.exists(d):
-                    os.makedirs(d)
-                    print(f'Folder {d} successfully created')
-                    self.feedback_label = f'Folder {d} successfully created'
-
-                else:
-                    print(f'The {d} folder already exists')
-                    self.feedback_label = f'The {d} folder already exists'
-
-            return final_dirs
-
-#*****************************************************************************
-        # RETURN THE DIRECTORY PATH
+        if isinstance(self.custom_add, list):   # checks whether an object or variable is an instance of a specified type or class
+            filters.extend(self.custom_add)   # adds elements individually
         else:
-            print(f'\nlength:    {len(final_dirs)}')
-            if len(final_dirs) == 1:
-                return final_dirs
+            filters.append(self.custom_add)   # adds single element
+        self.custom_add = self.filtered_directories(filters)
 
+        for d in self.custom_add:
 
+            if not os.path.exists(d):
+                os.makedirs(d)
+                print(f'Folder {d} successfully created')
+                self.feedback_label = f'Folder {d} successfully created'
+
+            else:
+                print(f'The {d} folder already exists')
+                self.feedback_label = f'The {d} folder already exists'
+
+        return self.custom_add
+
+#*****************************************************************************
+    # RETURN THE DIRECTORY PATH
+    def get_directory(self):
+        filters = []
+
+        if isinstance(self.custom_add, list):
+            filters.extend(self.custom_add)   # adds elements individually
+        else:
+            filters.append(self.custom_add)   # adds single element
+        self.custom_add = self.filtered_directories(filters)
+
+        for d in self.custom_add:
+            return self.custom_add
+        
 
 """
 #***************************************************************
 #***************************************************************
-# MAKE UE DIRECTORIES
+# child class
+# FOR "FILES" DIRECTORY
 #***************************************************************
 #***************************************************************
 """
-class MakeUEDirectories:
-    def __init__(self, make_dir=False):
+class FilesDirectoryManager(BaseDirectoryManager):
 
-        self.make_dir = make_dir
+    def __init__(self, software_filter='', maya_task_filter='', feedback_label=''):
 
-        # command
-        self.dirs = self.process_directories()
+        super(FilesDirectoryManager, self).__init__(feedback_label=feedback_label)
 
-    def assemble_ue_dirs(self):
-        base_dir_ue = os.path.join(loaded_project_path, 'UE')
+        # filters
+        self.software = software_filter.lower().strip()             # the strip() method removes any leading, and trailing whitespaces
+        self.maya_task = maya_task_filter.lower().strip()
 
+        self.custom_add = [self.software, self.maya_task]
+
+#***************************************************************
+    def assemble_directories(self):
         alldirs = []
+        base_dir = os.path.join(loaded_project_path, 'files')
 
         # if the project is an Environment
         if project_type == 'Environment':
 
             for category in env_categories:
-                if category != '':
+                print('ENVIRONMENT')
+                for sw in softwares:
 
-                    meshes_ue_dir = os.path.join(base_dir_ue, category, 'Meshes')
-                    alldirs.append(meshes_ue_dir)
-                    
-                    for res in texture_resolutions:
-                        new = os.path.join(base_dir_ue, category, 'Textures', res)
-                        alldirs.append(new)
+                    if sw.lower() == 'maya':
+                        maya_base = os.path.join(base_dir, category, 'maya')
+
+                        for task in maya_tasks:
+                            alldirs.append(os.path.join(maya_base, task))
+
+                    else:
+                        alldirs.append(os.path.join(base_dir, category, sw))
 
         # if project is Prop, 3D scan or Character
         else:
+            print('NOT ENVIRONMENT')
+            for sw in softwares:
 
-            meshes_ue_dir = os.path.join(base_dir_ue, 'Meshes')
+                if sw.lower() == 'maya':
+                    maya_base = os.path.join(base_dir, 'maya')
+
+                    for task in maya_tasks:
+                        alldirs.append(os.path.join(maya_base, task))
+
+                else:
+                    alldirs.append(os.path.join(base_dir, sw))
+
+        return alldirs, base_dir
+
+
+
+"""
+#***************************************************************
+#***************************************************************
+# child class
+# CREATE UNREAL ENGINE DIRECTORIES
+#***************************************************************
+#***************************************************************
+"""
+class UnrealEngineDirectoriesManager(BaseDirectoryManager):
+    def __init__(self, sub_folder_filter='', feedback_label=''):
+
+        super(UnrealEngineDirectoriesManager, self).__init__(feedback_label=feedback_label)
+
+        # filters
+        self.custom_add = sub_folder_filter.lower().strip()
+
+#***************************************************************
+    def assemble_directories(self):
+        alldirs = []
+        base_dir = os.path.join(loaded_project_path, 'UE')
+
+        # if the project is an Environment
+        if project_type == 'Environment':
+            print('ENVIRONMENT')
+            for category in env_categories:
+
+                meshes_ue_dir = os.path.join(base_dir, category, sub_folders_ue[0])                         # UE/Architectural/Meshes
+                alldirs.append(meshes_ue_dir)
+                
+                for res in texture_resolutions:                                               # UE/Architectural/Textures/1k
+                    textures_dir = os.path.join(base_dir, category, sub_folders_ue[2], res)
+                    alldirs.append(textures_dir)
+
+        # if project is Prop, 3D scan or Character
+        else:
+            print('NOT ENVIRONMENT')
+            meshes_ue_dir = os.path.join(base_dir, sub_folders_ue[0])                         # UE/Meshes
             alldirs.append(meshes_ue_dir)
 
             for res in texture_resolutions:
-                new = os.path.join(base_dir_ue, 'Textures', res)
-                alldirs.append(new)
+                textures_dir = os.path.join(base_dir, sub_folders_ue[2], res)                 # UE/Textures/1k
+                alldirs.append(textures_dir)
 
-        return alldirs
-
-#*****************************************************************************
-#*****************************************************************************
-    def process_directories(self):
-        final_dirs = self.assemble_ue_dirs()
-        #print(f'\nfinal dirs:   {final_dirs}')
-
-        # MAKE THE DIRECTORIES
-        if self.make_dir == True:
-
-            for d in final_dirs:
-                if not os.path.exists(d):
-                    os.makedirs(d)
-                    print(f'Folder {d} successfully created')
-                    self.feedback_label = f'Folder {d} successfully created'
-
-                else:
-                    print(f'The {d} folder already exists')
-                    self.feedback_label = f'The {d} folder already exists'
-
-            return final_dirs
-
-#*****************************************************************************
-        # RETURN THE DIRECTORY PATH
-        else:
-            for d in final_dirs:
-                if os.path.exists(d):
-                    print(f'\nlength:    {len(final_dirs)}')
-                    return final_dirs
-                else:
-                    print('Directories do not exist')
-
-
-
+        return alldirs, base_dir
+    
 
 """
 #***************************************************************
 #***************************************************************
-# MAKE CGTRADER DIRECTORIES
+# CREATE CGTRADER DIRECTORIES
 #***************************************************************
 #***************************************************************
 """
-# obsolete (keep for now)
-def make_textures_res_dirs(base):
-    alldirs = []
-    for shader_type in shader_types:
-        for res in texture_resolutions:
-            new = os.path.join(base, shader_type, res)
-            alldirs.append(new)
-    return alldirs
+class CgTraderDirectoryManager(BaseDirectoryManager):
+    def __init__(self, folder_filter='',  feedback_label=''):
 
+        super(CgTraderDirectoryManager, self).__init__(feedback_label=feedback_label)
 
-def make_cgtrader_base_dirs():
-    # create directories for cgtrader
-    if not os.path.exists(os.path.join(loaded_project_path, 'cgtrader', 'v01')):
-        cgtrader_base = os.path.join(loaded_project_path, 'cgtrader', 'v01', loaded_project_name)
-
-    # version up
-    else:
-        versions = max(sorted(os.listdir(os.path.join(loaded_project_path, 'cgtrader'))))[1:]
-        new_version = f'v{(int(versions)+ 1):02d}'
-        cgtrader_base = os.path.join(loaded_project_path, 'cgtrader', new_version, loaded_project_name)
-    return cgtrader_base
-
-#************************************************
-#************************************************
-# COMMAND FOR CREATING DIRECTORIES
-def make_cgtrader_dirs():             # to assign to ui button
-    new_dirs = []    
-    cgtrader_base = make_cgtrader_base_dirs()
-
-    cgtrader_static = os.path.join(cgtrader_base, f'{loaded_project_name}_staticRender')
-    cgtrader_ue = os.path.join(cgtrader_base, f'{loaded_project_name}_UE')
-
-    # directories for cgtrader static renders (DCC)
-    for folder in sub_folders_static_render:
-
-        new_dirs.append(os.path.join(cgtrader_static, folder))
-
-
-    for res in texture_resolutions:
-        new_dirs.append(os.path.join(cgtrader_static, 'Textures', 'RoughMetal', res))
-            
-
+        self.custom_add = folder_filter.lower().strip()
 
 #******************************************************************
-    # directories for cgtrader Unreal Engine
-    for folder in sub_folders_ue:
-        new_dirs.append(os.path.join(cgtrader_ue, folder))
+    def version(self):
+        # create base directory v01
+        if not os.path.exists(os.path.join(loaded_project_path, 'cgtrader', 'v01')):
+            return os.path.join(loaded_project_path, 'cgtrader', 'v01', cgtrader_project_name)      # cgtrader/v01/{cgtrader_project_name}
 
-    for res in texture_resolutions:
-        new_dirs.append(os.path.join(cgtrader_ue, 'Textures', res))
+        # version up
+        else:
+            versions = max(sorted(os.listdir(os.path.join(loaded_project_path, 'cgtrader'))))[1:]
+            new_version = f'v{(int(versions)+ 1):02d}'
+            return os.path.join(loaded_project_path, 'cgtrader', new_version, cgtrader_project_name)
 
-    for res in texture_resolutions:
-        new_dirs.append(os.path.join(cgtrader_base, f'{loaded_project_name}_UnrealEngine_Textures', res))
+#***************************************************************
+#***************************************************************
+    def assemble_directories(self):
+        alldirs = []
 
-    for d in new_dirs:
-        print(d)
-        os.makedirs(d)
+        base_dir = self.version()
+        cgtrader_static = os.path.join(base_dir, f'{cgtrader_project_name}_staticRender')           # cgtrader/v01/{cgtrader_project_name}/{cgtrader_project_name}_staticRender
+        cgtrader_ue = os.path.join(base_dir, f'{cgtrader_project_name}_UE')                         # cgtrader/v01/{cgtrader_project_name}/{cgtrader_project_name}_UE
+
+    #***************************************************************
+        # {cgtrader_project_name}_staticRender
+        # directories for static renders (maya, 3ds max, etc)
+        for folder in sub_folders_static_render:
+            alldirs.append(os.path.join(cgtrader_static, folder))                                   # {cgtrader_project_name}_staticRender/LODs
+
+        for res in texture_resolutions:
+            alldirs.append(os.path.join(cgtrader_static, sub_folders_ue[2], res))                   # {cgtrader_project_name}_staticRender/Textures/1k
+                
+    #******************************************************************
+        # {cgtrader_project_name}_UE
+        # directories for uassets
+        for folder in sub_folders_ue[0:2]:
+            alldirs.append(os.path.join(cgtrader_ue, folder))                                       # {cgtrader_project_name}_UE/Meshes
+
+        for res in texture_resolutions:
+            alldirs.append(os.path.join(cgtrader_ue, sub_folders_ue[2], res))                       # {cgtrader_project_name}_UE/Textures/1k
+
+    #******************************************************************
+        # {cgtrader_project_name}_UnrealEngine_Textures
+        # directories for textures png
+        for res in texture_resolutions:
+            alldirs.append(os.path.join(base_dir, f'{cgtrader_project_name}_UnrealEngine_Textures', res))     # {cgtrader_project_name}_UnrealEngine_Textures/1k
+  
+        return alldirs, base_dir
+
+#*****************************************************************************
+#*****************************************************************************
 
 
 
 
 
-#make_cgtrader_dirs()
+
+#***************************************************************************************************************************************
+# TEST
+
+#print(loaded_project_name)
+
+#--------------------------------------------
+#USE PARENT CLASS
+# use the parent class to create a single directory with custom name
+refs = BaseDirectoryManager(custom_add='refs', feedback_label='').create_directory()
+print(f'\nrefs:  {refs}\n')
+
+#--------------------------------------------
+# USE CHILD CLASSES
+# create/get cgtrader directories
+cgtrader = CgTraderDirectoryManager(folder_filter='meshes',  feedback_label='').get_directory()
+print(f'\ncgtrader filtered dirs:\n{cgtrader}\n')
 
 
-# Example usage for ui        --> link buttons to open specific project file 
-#arch = PipelineDirectoryManager(env_category='architectural', software='', maya_task='')
-#print(f"\narch directories: {arch.dirs}")
+# create/get files directories
+files = FilesDirectoryManager(software_filter='maya', maya_task_filter='model').get_directory()
+print(f'\nfiles filtered dirs:\n{files}\n')
 
-props = PipelineDirectoryManager(env_category='props', software='', maya_task='', make_dir=True)
-print(f"\nprops directories: {props.dirs}")
-
-#lamps = PipelineDirectoryManager(env_category='lamps', software='', maya_task='')
-#print(f"\narch directories: {lamps.dirs}")
-
-#generic = PipelineDirectoryManager(env_category='props', software='', maya_task='')
-#print(f"\narch directories: {generic.dirs}")
-
-#PipelineDirectoryManager(env_category='props', software='maya', maya_task='', make_dir=True)  
-
-#PipelineDirectoryManager(env_category='props', software='SP', maya_task='', make_dir=False)
-
+# create/get ue directories
+ue = UnrealEngineDirectoriesManager(sub_folder_filter='lamps').get_directory()
+print(f'\nunreal engine filtered dirs:\n{ue}\n')
 
 
 
