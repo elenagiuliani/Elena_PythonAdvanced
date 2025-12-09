@@ -1,0 +1,24 @@
+workspace -fr "translatorData" "C:\Users\utente\Desktop\projects\Environment\E_25_001__LA_apartment_MarriageStory\files\Lamps\maya\modeling\Laapartment_model_project/translatorData";
+                                        workspace -fr "offlineEditPack" "C:\Users\utente\Desktop\projects\Environment\E_25_001__LA_apartment_MarriageStory\files\Lamps\maya\modeling\Laapartment_model_project/offlineEditPack";
+                                        workspace -fr "renderData" "C:\Users\utente\Desktop\projects\Environment\E_25_001__LA_apartment_MarriageStory\files\Lamps\maya\modeling\Laapartment_model_project/renderData";
+                                        workspace -fr "depth" "C:\Users\utente\Desktop\projects\Environment\E_25_001__LA_apartment_MarriageStory\files\Lamps\maya\modeling\Laapartment_model_project/renderData/depth";
+                                        workspace -fr "mentalRayIpr" "C:\Users\utente\Desktop\projects\Environment\E_25_001__LA_apartment_MarriageStory\files\Lamps\maya\modeling\Laapartment_model_project/renderData/mentalRayIpr";
+                                        workspace -fr "mentalRayShadowData" "C:\Users\utente\Desktop\projects\Environment\E_25_001__LA_apartment_MarriageStory\files\Lamps\maya\modeling\Laapartment_model_project/renderData/mentalRayShadowData";
+                                        workspace -fr "ALEMBIC" "C:\Users\utente\Desktop\projects\Environment\E_25_001__LA_apartment_MarriageStory\files\Lamps\maya\modeling\Laapartment_model_project/cache/alembic";
+                                        workspace -fr "ifxCache" "C:\Users\utente\Desktop\projects\Environment\E_25_001__LA_apartment_MarriageStory\files\Lamps\maya\modeling\Laapartment_model_project/cache";
+                                        workspace -fr "particles" "C:\Users\utente\Desktop\projects\Environment\E_25_001__LA_apartment_MarriageStory\files\Lamps\maya\modeling\Laapartment_model_project/cache/particles";
+                                        workspace -fr "DIM" "C:\Users\utente\Desktop\projects\Environment\E_25_001__LA_apartment_MarriageStory\files\Lamps\maya\modeling\Laapartment_model_project/cache/DIM";
+                                        workspace -fr "Alembic" "C:\Users\utente\Desktop\projects\Environment\E_25_001__LA_apartment_MarriageStory\files\Lamps\maya\modeling\Laapartment_model_project/cache/alembic";
+                                        workspace -fr "sound" "C:\Users\utente\Desktop\projects\Environment\E_25_001__LA_apartment_MarriageStory\files\Lamps\maya\modeling\Laapartment_model_project/sound";
+                                        workspace -fr "fur" "C:\Users\utente\Desktop\projects\Environment\E_25_001__LA_apartment_MarriageStory\files\Lamps\maya\modeling\Laapartment_model_project/fur";
+                                        workspace -fr "furShadowMap" "C:\Users\utente\Desktop\projects\Environment\E_25_001__LA_apartment_MarriageStory\files\Lamps\maya\modeling\Laapartment_model_project/renderData/furShadowMap";
+                                        workspace -fr "furFiles" "C:\Users\utente\Desktop\projects\Environment\E_25_001__LA_apartment_MarriageStory\files\Lamps\maya\modeling\Laapartment_model_project/fur";
+                                        workspace -fr "clips" "C:\Users\utente\Desktop\projects\Environment\E_25_001__LA_apartment_MarriageStory\files\Lamps\maya\modeling\Laapartment_model_project/clips";
+                                        workspace -fr "Shaders" "C:\Users\utente\Desktop\projects\Environment\E_25_001__LA_apartment_MarriageStory\files\Lamps\maya\modeling\Laapartment_model_project/renderData/shaders";
+                                        workspace -fr "images" "C:\Users\utente\Desktop\projects\Environment\E_25_001__LA_apartment_MarriageStory\files\Lamps\maya\modeling\Laapartment_model_project/images";
+                                        workspace -fr "sourceImages" "C:\Users\utente\Desktop\projects\Environment\E_25_001__LA_apartment_MarriageStory\files\Lamps\maya\modeling\Laapartment_model_project/sourceImages";
+                                        workspace -fr "icons" "C:\Users\utente\Desktop\projects\Environment\E_25_001__LA_apartment_MarriageStory\files\Lamps\maya\modeling\Laapartment_model_project/icons";
+                                        workspace -fr "scripts" "C:\Users\utente\Desktop\projects\Environment\E_25_001__LA_apartment_MarriageStory\files\Lamps\maya\modeling\Laapartment_model_project/scripts";
+                                        workspace -fr "plugins" "C:\Users\utente\Desktop\projects\Environment\E_25_001__LA_apartment_MarriageStory\files\Lamps\maya\modeling\Laapartment_model_project/plugins";
+                                        workspace -fr "scenes" "C:\Users\utente\Desktop\projects\Environment\E_25_001__LA_apartment_MarriageStory\files\Lamps\maya\modeling\Laapartment_model_project/scenes";
+                                        
