@@ -19,5 +19,6 @@ Its creation proved necessary to reduce production time by automating repetitive
 * take asset screenshot
 * increment save scene
 
+<img width="2048" height="740" alt="roadmap" src="https://github.com/user-attachments/assets/08018d94-5f23-48f1-85e8-e40b81ce8143" />
 
-<img width="2048" height="740" alt="roadmap" src="https://github.com/user-attachments/assets/e88a5741-693f-4609-ae63-8f2c3c956c8a" />
+
