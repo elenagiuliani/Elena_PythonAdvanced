@@ -25,7 +25,7 @@ class Ui_arFiles(object):
     def setupUi(self, arFiles):
         if not arFiles.objectName():
             arFiles.setObjectName(u"arFiles")
-        arFiles.resize(624, 417)
+        arFiles.resize(621, 417)
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -44,36 +44,22 @@ class Ui_arFiles(object):
 
         self.horizontalLayout_7.addItem(self.horizontalSpacer_3)
 
-        self.widget_3 = QWidget(arFiles)
-        self.widget_3.setObjectName(u"widget_3")
+        self.wgt_AssetsFiles = QWidget(arFiles)
+        self.wgt_AssetsFiles.setObjectName(u"wgt_AssetsFiles")
         sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Preferred)
         sizePolicy1.setHorizontalStretch(0)
         sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.widget_3.sizePolicy().hasHeightForWidth())
-        self.widget_3.setSizePolicy(sizePolicy1)
-        self.widget_3.setMinimumSize(QSize(60, 0))
-        self.widget_3.setStyleSheet(u"QPushButton {background-color: rgb(30, 30, 30);   /*unchecked state*/\n"
-"\n"
-"			   			color: rgb(200, 200, 200);\n"
-"						padding: 3px 18px;}\n"
-"\n"
-"QPushButton:checked {background-color: rgb(71, 89, 30);\n"
-"						color: rgb(240, 240, 240);\n"
-"}\n"
-"\n"
-"\n"
-"QPushButton:hover {background-color: rgb(31, 49, 0);\n"
-"color: rgb(200, 200, 200);\n"
-" }\n"
-"\n"
-"\n"
+        sizePolicy1.setHeightForWidth(self.wgt_AssetsFiles.sizePolicy().hasHeightForWidth())
+        self.wgt_AssetsFiles.setSizePolicy(sizePolicy1)
+        self.wgt_AssetsFiles.setMinimumSize(QSize(60, 0))
+        self.wgt_AssetsFiles.setStyleSheet(u"QPushButton {padding: 3px 18px;}\n"
 "\n"
 "")
-        self.horizontalLayout_2 = QHBoxLayout(self.widget_3)
+        self.horizontalLayout_2 = QHBoxLayout(self.wgt_AssetsFiles)
         self.horizontalLayout_2.setSpacing(0)
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
-        self.btnAssets = QPushButton(self.widget_3)
+        self.btnAssets = QPushButton(self.wgt_AssetsFiles)
         self.btnAssets.setObjectName(u"btnAssets")
         self.btnAssets.setMinimumSize(QSize(18, 0))
         self.btnAssets.setStyleSheet(u"QPushButton {\n"
@@ -88,7 +74,7 @@ class Ui_arFiles(object):
 
         self.horizontalLayout_2.addWidget(self.btnAssets)
 
-        self.btnFiles = QPushButton(self.widget_3)
+        self.btnFiles = QPushButton(self.wgt_AssetsFiles)
         self.btnFiles.setObjectName(u"btnFiles")
         self.btnFiles.setMinimumSize(QSize(18, 0))
         self.btnFiles.setStyleSheet(u"\n"
@@ -105,7 +91,7 @@ class Ui_arFiles(object):
         self.horizontalLayout_2.addWidget(self.btnFiles)
 
 
-        self.horizontalLayout_7.addWidget(self.widget_3)
+        self.horizontalLayout_7.addWidget(self.wgt_AssetsFiles)
 
         self.horizontalSpacer_4 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
@@ -190,6 +176,8 @@ class Ui_arFiles(object):
         QListWidgetItem(self.listDepartments)
         QListWidgetItem(self.listDepartments)
         QListWidgetItem(self.listDepartments)
+        QListWidgetItem(self.listDepartments)
+        QListWidgetItem(self.listDepartments)
         self.listDepartments.setObjectName(u"listDepartments")
         self.listDepartments.setEnabled(True)
         self.listDepartments.setMinimumSize(QSize(100, 0))
@@ -212,7 +200,7 @@ class Ui_arFiles(object):
         self.scrFiles.setWidgetResizable(True)
         self.scrollAreaWidgetContents_4 = QWidget()
         self.scrollAreaWidgetContents_4.setObjectName(u"scrollAreaWidgetContents_4")
-        self.scrollAreaWidgetContents_4.setGeometry(QRect(0, 0, 244, 215))
+        self.scrollAreaWidgetContents_4.setGeometry(QRect(0, 0, 243, 215))
         self.gridLayout_17 = QGridLayout(self.scrollAreaWidgetContents_4)
         self.gridLayout_17.setObjectName(u"gridLayout_17")
         self.gridLayout_17.setVerticalSpacing(0)
@@ -239,17 +227,42 @@ class Ui_arFiles(object):
         font.setPointSize(8)
         self.stkFiles.setFont(font)
         self.stkFiles.setStyleSheet(u"")
-        self.page_0_modeling = QWidget()
-        self.page_0_modeling.setObjectName(u"page_0_modeling")
+        self.page_0_3dscanning = QWidget()
+        self.page_0_3dscanning.setObjectName(u"page_0_3dscanning")
+        self.gridLayout = QGridLayout(self.page_0_3dscanning)
+        self.gridLayout.setObjectName(u"gridLayout")
+        self.gridLayout.setHorizontalSpacing(5)
+        self.gridLayout.setVerticalSpacing(6)
+        self.gridLayout.setContentsMargins(5, 5, 5, 5)
+        self.label_2 = QLabel(self.page_0_3dscanning)
+        self.label_2.setObjectName(u"label_2")
+        sizePolicy3.setHeightForWidth(self.label_2.sizePolicy().hasHeightForWidth())
+        self.label_2.setSizePolicy(sizePolicy3)
+        self.label_2.setMaximumSize(QSize(16777215, 15))
+
+        self.gridLayout.addWidget(self.label_2, 0, 0, 1, 1)
+
+        self.layFilesScanning = QVBoxLayout()
+        self.layFilesScanning.setObjectName(u"layFilesScanning")
+
+        self.gridLayout.addLayout(self.layFilesScanning, 1, 0, 1, 1)
+
+        self.verticalSpacer_2 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+
+        self.gridLayout.addItem(self.verticalSpacer_2, 2, 0, 1, 1)
+
+        self.stkFiles.addWidget(self.page_0_3dscanning)
+        self.page_1_modeling = QWidget()
+        self.page_1_modeling.setObjectName(u"page_1_modeling")
         sizePolicy5 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
         sizePolicy5.setHorizontalStretch(0)
         sizePolicy5.setVerticalStretch(0)
-        sizePolicy5.setHeightForWidth(self.page_0_modeling.sizePolicy().hasHeightForWidth())
-        self.page_0_modeling.setSizePolicy(sizePolicy5)
-        self.verticalLayout_9 = QVBoxLayout(self.page_0_modeling)
+        sizePolicy5.setHeightForWidth(self.page_1_modeling.sizePolicy().hasHeightForWidth())
+        self.page_1_modeling.setSizePolicy(sizePolicy5)
+        self.verticalLayout_9 = QVBoxLayout(self.page_1_modeling)
         self.verticalLayout_9.setObjectName(u"verticalLayout_9")
         self.verticalLayout_9.setContentsMargins(5, 5, 5, 5)
-        self.label_15 = QLabel(self.page_0_modeling)
+        self.label_15 = QLabel(self.page_1_modeling)
         self.label_15.setObjectName(u"label_15")
         sizePolicy3.setHeightForWidth(self.label_15.sizePolicy().hasHeightForWidth())
         self.label_15.setSizePolicy(sizePolicy3)
@@ -268,13 +281,32 @@ class Ui_arFiles(object):
 
         self.verticalLayout_9.addItem(self.verticalSpacer_19)
 
-        self.stkFiles.addWidget(self.page_0_modeling)
-        self.page_1_sculpting = QWidget()
-        self.page_1_sculpting.setObjectName(u"page_1_sculpting")
-        self.verticalLayout_3 = QVBoxLayout(self.page_1_sculpting)
+        self.stkFiles.addWidget(self.page_1_modeling)
+        self.page_2_clothing = QWidget()
+        self.page_2_clothing.setObjectName(u"page_2_clothing")
+        self.gridLayout_2 = QGridLayout(self.page_2_clothing)
+        self.gridLayout_2.setObjectName(u"gridLayout_2")
+        self.label_3 = QLabel(self.page_2_clothing)
+        self.label_3.setObjectName(u"label_3")
+        sizePolicy3.setHeightForWidth(self.label_3.sizePolicy().hasHeightForWidth())
+        self.label_3.setSizePolicy(sizePolicy3)
+        self.label_3.setMaximumSize(QSize(16777215, 15))
+
+        self.gridLayout_2.addWidget(self.label_3, 0, 0, 1, 1)
+
+        self.layFilesClothing = QVBoxLayout()
+        self.layFilesClothing.setSpacing(6)
+        self.layFilesClothing.setObjectName(u"layFilesClothing")
+
+        self.gridLayout_2.addLayout(self.layFilesClothing, 1, 0, 1, 1)
+
+        self.stkFiles.addWidget(self.page_2_clothing)
+        self.page_3_sculpting = QWidget()
+        self.page_3_sculpting.setObjectName(u"page_3_sculpting")
+        self.verticalLayout_3 = QVBoxLayout(self.page_3_sculpting)
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
         self.verticalLayout_3.setContentsMargins(5, 5, 5, 5)
-        self.label = QLabel(self.page_1_sculpting)
+        self.label = QLabel(self.page_3_sculpting)
         self.label.setObjectName(u"label")
         sizePolicy3.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
         self.label.setSizePolicy(sizePolicy3)
@@ -292,16 +324,16 @@ class Ui_arFiles(object):
 
         self.verticalLayout_3.addItem(self.verticalSpacer)
 
-        self.stkFiles.addWidget(self.page_1_sculpting)
-        self.page_2_baking = QWidget()
-        self.page_2_baking.setObjectName(u"page_2_baking")
-        sizePolicy3.setHeightForWidth(self.page_2_baking.sizePolicy().hasHeightForWidth())
-        self.page_2_baking.setSizePolicy(sizePolicy3)
-        self.gridLayout_18 = QGridLayout(self.page_2_baking)
+        self.stkFiles.addWidget(self.page_3_sculpting)
+        self.page_4_baking = QWidget()
+        self.page_4_baking.setObjectName(u"page_4_baking")
+        sizePolicy3.setHeightForWidth(self.page_4_baking.sizePolicy().hasHeightForWidth())
+        self.page_4_baking.setSizePolicy(sizePolicy3)
+        self.gridLayout_18 = QGridLayout(self.page_4_baking)
         self.gridLayout_18.setObjectName(u"gridLayout_18")
         self.gridLayout_18.setHorizontalSpacing(5)
         self.gridLayout_18.setContentsMargins(5, 5, 5, 5)
-        self.label_16 = QLabel(self.page_2_baking)
+        self.label_16 = QLabel(self.page_4_baking)
         self.label_16.setObjectName(u"label_16")
         sizePolicy3.setHeightForWidth(self.label_16.sizePolicy().hasHeightForWidth())
         self.label_16.setSizePolicy(sizePolicy3)
@@ -318,16 +350,16 @@ class Ui_arFiles(object):
 
         self.gridLayout_18.addItem(self.verticalSpacer_20, 2, 0, 1, 1)
 
-        self.stkFiles.addWidget(self.page_2_baking)
-        self.page_3_texturing = QWidget()
-        self.page_3_texturing.setObjectName(u"page_3_texturing")
-        sizePolicy3.setHeightForWidth(self.page_3_texturing.sizePolicy().hasHeightForWidth())
-        self.page_3_texturing.setSizePolicy(sizePolicy3)
-        self.gridLayout_19 = QGridLayout(self.page_3_texturing)
+        self.stkFiles.addWidget(self.page_4_baking)
+        self.page_5_texturing = QWidget()
+        self.page_5_texturing.setObjectName(u"page_5_texturing")
+        sizePolicy3.setHeightForWidth(self.page_5_texturing.sizePolicy().hasHeightForWidth())
+        self.page_5_texturing.setSizePolicy(sizePolicy3)
+        self.gridLayout_19 = QGridLayout(self.page_5_texturing)
         self.gridLayout_19.setObjectName(u"gridLayout_19")
         self.gridLayout_19.setHorizontalSpacing(5)
         self.gridLayout_19.setContentsMargins(5, 5, 5, 5)
-        self.label_17 = QLabel(self.page_3_texturing)
+        self.label_17 = QLabel(self.page_5_texturing)
         self.label_17.setObjectName(u"label_17")
         sizePolicy3.setHeightForWidth(self.label_17.sizePolicy().hasHeightForWidth())
         self.label_17.setSizePolicy(sizePolicy3)
@@ -345,16 +377,16 @@ class Ui_arFiles(object):
 
         self.gridLayout_19.addItem(self.verticalSpacer_21, 2, 0, 1, 1)
 
-        self.stkFiles.addWidget(self.page_3_texturing)
-        self.page_4_groom = QWidget()
-        self.page_4_groom.setObjectName(u"page_4_groom")
-        sizePolicy3.setHeightForWidth(self.page_4_groom.sizePolicy().hasHeightForWidth())
-        self.page_4_groom.setSizePolicy(sizePolicy3)
-        self.gridLayout_20 = QGridLayout(self.page_4_groom)
+        self.stkFiles.addWidget(self.page_5_texturing)
+        self.page_6_groom = QWidget()
+        self.page_6_groom.setObjectName(u"page_6_groom")
+        sizePolicy3.setHeightForWidth(self.page_6_groom.sizePolicy().hasHeightForWidth())
+        self.page_6_groom.setSizePolicy(sizePolicy3)
+        self.gridLayout_20 = QGridLayout(self.page_6_groom)
         self.gridLayout_20.setObjectName(u"gridLayout_20")
         self.gridLayout_20.setHorizontalSpacing(5)
         self.gridLayout_20.setContentsMargins(5, 5, 5, 5)
-        self.label_18 = QLabel(self.page_4_groom)
+        self.label_18 = QLabel(self.page_6_groom)
         self.label_18.setObjectName(u"label_18")
         sizePolicy3.setHeightForWidth(self.label_18.sizePolicy().hasHeightForWidth())
         self.label_18.setSizePolicy(sizePolicy3)
@@ -372,16 +404,16 @@ class Ui_arFiles(object):
 
         self.gridLayout_20.addItem(self.verticalSpacer_22, 2, 0, 1, 1)
 
-        self.stkFiles.addWidget(self.page_4_groom)
-        self.page_5_rigging = QWidget()
-        self.page_5_rigging.setObjectName(u"page_5_rigging")
-        sizePolicy3.setHeightForWidth(self.page_5_rigging.sizePolicy().hasHeightForWidth())
-        self.page_5_rigging.setSizePolicy(sizePolicy3)
-        self.gridLayout_21 = QGridLayout(self.page_5_rigging)
+        self.stkFiles.addWidget(self.page_6_groom)
+        self.page_7_rigging = QWidget()
+        self.page_7_rigging.setObjectName(u"page_7_rigging")
+        sizePolicy3.setHeightForWidth(self.page_7_rigging.sizePolicy().hasHeightForWidth())
+        self.page_7_rigging.setSizePolicy(sizePolicy3)
+        self.gridLayout_21 = QGridLayout(self.page_7_rigging)
         self.gridLayout_21.setObjectName(u"gridLayout_21")
         self.gridLayout_21.setHorizontalSpacing(5)
         self.gridLayout_21.setContentsMargins(5, 5, 5, 5)
-        self.label_19 = QLabel(self.page_5_rigging)
+        self.label_19 = QLabel(self.page_7_rigging)
         self.label_19.setObjectName(u"label_19")
         sizePolicy3.setHeightForWidth(self.label_19.sizePolicy().hasHeightForWidth())
         self.label_19.setSizePolicy(sizePolicy3)
@@ -398,12 +430,12 @@ class Ui_arFiles(object):
 
         self.gridLayout_21.addItem(self.verticalSpacer_23, 2, 0, 1, 1)
 
-        self.stkFiles.addWidget(self.page_5_rigging)
-        self.page_6_pose = QWidget()
-        self.page_6_pose.setObjectName(u"page_6_pose")
-        sizePolicy3.setHeightForWidth(self.page_6_pose.sizePolicy().hasHeightForWidth())
-        self.page_6_pose.setSizePolicy(sizePolicy3)
-        self.gridLayout_22 = QGridLayout(self.page_6_pose)
+        self.stkFiles.addWidget(self.page_7_rigging)
+        self.page_8_pose = QWidget()
+        self.page_8_pose.setObjectName(u"page_8_pose")
+        sizePolicy3.setHeightForWidth(self.page_8_pose.sizePolicy().hasHeightForWidth())
+        self.page_8_pose.setSizePolicy(sizePolicy3)
+        self.gridLayout_22 = QGridLayout(self.page_8_pose)
         self.gridLayout_22.setObjectName(u"gridLayout_22")
         self.gridLayout_22.setHorizontalSpacing(5)
         self.gridLayout_22.setContentsMargins(5, 5, 5, 5)
@@ -412,7 +444,7 @@ class Ui_arFiles(object):
 
         self.gridLayout_22.addLayout(self.layFilesPose, 1, 0, 1, 1)
 
-        self.label_20 = QLabel(self.page_6_pose)
+        self.label_20 = QLabel(self.page_8_pose)
         self.label_20.setObjectName(u"label_20")
         sizePolicy3.setHeightForWidth(self.label_20.sizePolicy().hasHeightForWidth())
         self.label_20.setSizePolicy(sizePolicy3)
@@ -425,12 +457,12 @@ class Ui_arFiles(object):
 
         self.gridLayout_22.addItem(self.verticalSpacer_24, 2, 0, 1, 1)
 
-        self.stkFiles.addWidget(self.page_6_pose)
-        self.page_7_animation = QWidget()
-        self.page_7_animation.setObjectName(u"page_7_animation")
-        sizePolicy3.setHeightForWidth(self.page_7_animation.sizePolicy().hasHeightForWidth())
-        self.page_7_animation.setSizePolicy(sizePolicy3)
-        self.gridLayout_23 = QGridLayout(self.page_7_animation)
+        self.stkFiles.addWidget(self.page_8_pose)
+        self.page_9_animation = QWidget()
+        self.page_9_animation.setObjectName(u"page_9_animation")
+        sizePolicy3.setHeightForWidth(self.page_9_animation.sizePolicy().hasHeightForWidth())
+        self.page_9_animation.setSizePolicy(sizePolicy3)
+        self.gridLayout_23 = QGridLayout(self.page_9_animation)
         self.gridLayout_23.setObjectName(u"gridLayout_23")
         self.gridLayout_23.setHorizontalSpacing(5)
         self.gridLayout_23.setContentsMargins(5, 5, 5, 5)
@@ -443,7 +475,7 @@ class Ui_arFiles(object):
 
         self.gridLayout_23.addItem(self.verticalSpacer_25, 2, 0, 1, 1)
 
-        self.label_21 = QLabel(self.page_7_animation)
+        self.label_21 = QLabel(self.page_9_animation)
         self.label_21.setObjectName(u"label_21")
         sizePolicy3.setHeightForWidth(self.label_21.sizePolicy().hasHeightForWidth())
         self.label_21.setSizePolicy(sizePolicy3)
@@ -452,7 +484,7 @@ class Ui_arFiles(object):
 
         self.gridLayout_23.addWidget(self.label_21, 0, 0, 1, 1)
 
-        self.stkFiles.addWidget(self.page_7_animation)
+        self.stkFiles.addWidget(self.page_9_animation)
 
         self.verticalLayout_8.addWidget(self.stkFiles)
 
@@ -490,30 +522,39 @@ class Ui_arFiles(object):
         self.gridLayout_9.setContentsMargins(0, 0, 0, 0)
         self.scrollArea = QScrollArea(self.wgtAssets)
         self.scrollArea.setObjectName(u"scrollArea")
+        sizePolicy4.setHeightForWidth(self.scrollArea.sizePolicy().hasHeightForWidth())
+        self.scrollArea.setSizePolicy(sizePolicy4)
         self.scrollArea.setFrameShadow(QFrame.Shadow.Sunken)
         self.scrollArea.setWidgetResizable(True)
+        self.scrollArea.setAlignment(Qt.AlignmentFlag.AlignLeading|Qt.AlignmentFlag.AlignLeft|Qt.AlignmentFlag.AlignTop)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 613, 163))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 598, 300))
+        sizePolicy7 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+        sizePolicy7.setHorizontalStretch(0)
+        sizePolicy7.setVerticalStretch(0)
+        sizePolicy7.setHeightForWidth(self.scrollAreaWidgetContents.sizePolicy().hasHeightForWidth())
+        self.scrollAreaWidgetContents.setSizePolicy(sizePolicy7)
+        self.scrollAreaWidgetContents.setMinimumSize(QSize(0, 300))
+        self.scrollAreaWidgetContents.setMaximumSize(QSize(16777215, 0))
         self.verticalLayout_7 = QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_7.setSpacing(0)
         self.verticalLayout_7.setObjectName(u"verticalLayout_7")
+        self.verticalLayout_7.setSizeConstraint(QLayout.SizeConstraint.SetMinimumSize)
         self.verticalLayout_7.setContentsMargins(9, 0, 9, 0)
         self.layBlueprints = QVBoxLayout()
         self.layBlueprints.setSpacing(0)
         self.layBlueprints.setObjectName(u"layBlueprints")
+        self.layBlueprints.setSizeConstraint(QLayout.SizeConstraint.SetMinimumSize)
 
         self.verticalLayout_7.addLayout(self.layBlueprints)
 
         self.layAsset = QVBoxLayout()
         self.layAsset.setSpacing(0)
         self.layAsset.setObjectName(u"layAsset")
+        self.layAsset.setSizeConstraint(QLayout.SizeConstraint.SetMinimumSize)
 
         self.verticalLayout_7.addLayout(self.layAsset)
-
-        self.verticalSpacer_9 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
-
-        self.verticalLayout_7.addItem(self.verticalSpacer_9)
 
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
 
@@ -525,8 +566,8 @@ class Ui_arFiles(object):
 
         self.retranslateUi(arFiles)
 
-        self.listDepartments.setCurrentRow(0)
-        self.stkFiles.setCurrentIndex(0)
+        self.listDepartments.setCurrentRow(1)
+        self.stkFiles.setCurrentIndex(1)
 
 
         QMetaObject.connectSlotsByName(arFiles)
@@ -552,24 +593,30 @@ class Ui_arFiles(object):
         __sortingEnabled = self.listDepartments.isSortingEnabled()
         self.listDepartments.setSortingEnabled(False)
         ___qlistwidgetitem = self.listDepartments.item(0)
-        ___qlistwidgetitem.setText(QCoreApplication.translate("arFiles", u"Modeling", None));
+        ___qlistwidgetitem.setText(QCoreApplication.translate("arFiles", u"3Dscanning", None));
         ___qlistwidgetitem1 = self.listDepartments.item(1)
-        ___qlistwidgetitem1.setText(QCoreApplication.translate("arFiles", u"Sculpting", None));
+        ___qlistwidgetitem1.setText(QCoreApplication.translate("arFiles", u"Modeling", None));
         ___qlistwidgetitem2 = self.listDepartments.item(2)
-        ___qlistwidgetitem2.setText(QCoreApplication.translate("arFiles", u"Baking", None));
+        ___qlistwidgetitem2.setText(QCoreApplication.translate("arFiles", u"Clothing", None));
         ___qlistwidgetitem3 = self.listDepartments.item(3)
-        ___qlistwidgetitem3.setText(QCoreApplication.translate("arFiles", u"Texturing", None));
+        ___qlistwidgetitem3.setText(QCoreApplication.translate("arFiles", u"Sculpting", None));
         ___qlistwidgetitem4 = self.listDepartments.item(4)
-        ___qlistwidgetitem4.setText(QCoreApplication.translate("arFiles", u"Groom", None));
+        ___qlistwidgetitem4.setText(QCoreApplication.translate("arFiles", u"Baking", None));
         ___qlistwidgetitem5 = self.listDepartments.item(5)
-        ___qlistwidgetitem5.setText(QCoreApplication.translate("arFiles", u"Rigging", None));
+        ___qlistwidgetitem5.setText(QCoreApplication.translate("arFiles", u"Texturing", None));
         ___qlistwidgetitem6 = self.listDepartments.item(6)
-        ___qlistwidgetitem6.setText(QCoreApplication.translate("arFiles", u"Pose", None));
+        ___qlistwidgetitem6.setText(QCoreApplication.translate("arFiles", u"Groom", None));
         ___qlistwidgetitem7 = self.listDepartments.item(7)
-        ___qlistwidgetitem7.setText(QCoreApplication.translate("arFiles", u"Animation", None));
+        ___qlistwidgetitem7.setText(QCoreApplication.translate("arFiles", u"Rigging", None));
+        ___qlistwidgetitem8 = self.listDepartments.item(8)
+        ___qlistwidgetitem8.setText(QCoreApplication.translate("arFiles", u"Pose", None));
+        ___qlistwidgetitem9 = self.listDepartments.item(9)
+        ___qlistwidgetitem9.setText(QCoreApplication.translate("arFiles", u"Animation", None));
         self.listDepartments.setSortingEnabled(__sortingEnabled)
 
+        self.label_2.setText(QCoreApplication.translate("arFiles", u"3D scanning files", None))
         self.label_15.setText(QCoreApplication.translate("arFiles", u"Modeling files", None))
+        self.label_3.setText(QCoreApplication.translate("arFiles", u"Clothing files", None))
         self.label.setText(QCoreApplication.translate("arFiles", u"Sculpting files", None))
         self.label_16.setText(QCoreApplication.translate("arFiles", u"Baking files", None))
         self.label_17.setText(QCoreApplication.translate("arFiles", u"Texturing files", None))

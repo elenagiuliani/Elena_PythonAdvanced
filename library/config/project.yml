@@ -2,65 +2,20 @@
 #
 # Date     : 2025-12-04
 #
+# license  : MIT
 # Author   : Elena Giuliani
 # email    : elenagiuliani94@outlook.it
 
-project_root: 'C:\Users\utente\Desktop\projects'
+projects_root: ''
 
 # PROJECT DATA
-loaded_project: 'E_25_001__LA_apartment_MarriageStory'
+loaded_project: ''
 
 # FILES NAME
-files_name: 'Laapartment'
+files_name: ''
 
 # PROJECT TITLE FOR ASSETS TO SELL
-marketplace_name: 'LA_apartment_MarriageStory'
+marketplace_name: ''
 
 #**********************
-project_types: ['Environment', 'Props', '3Dscans', 'Characters']
-
-env_categories: ['Architectural', 'Props', 'Lamps']
-selected_tab: Props
-
-# marketplace
-folders_ue: ['Meshes', 'Materials', 'Textures']
-
-#**********************
-# NAMING CONVENTION
-files_naming:
-
-  modeling:
-    department: modeling
-    extension: model
-
-  baking:
-    department: baking
-    extension: baking
-
-  texturing:
-    department: texturing
-    extension: tex
-
-  grooming:
-    department: grooming
-    extension: groom
-
-  rigging:
-    department: rigging
-    extension: rig
-
-  pose:
-    department: pose
-    extension: pose
-
-  animation:
-    department: animation
-    extension: anim
-
-  sculpting:
-    department: sculpting
-    extension: sculpt
-
-  3Dscan:
-    department: scan
-    extension: scan
+selected_tab: Architectural

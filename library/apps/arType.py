@@ -1,8 +1,10 @@
 """
-Content  : arType - tabs for different project types (architecture, props, 3D scans and characters)
+Content  : arType.py 
+            - tabs for different project types (architecture, props, 3D scans and characters)
 
 Date     : 2025-11-13
 
+license  : MIT
 Author   : Elena Giuliani
 email    : elenagiuliani94@outlook.it
 """
@@ -12,36 +14,38 @@ from datetime import datetime
 
 from Qt import QtWidgets, QtGui, QtCompat, QtCore
 
-from arUtil import ArUtil, CURRENT_DIR, IMG_PATH
-from library.appfunc import project_type_dir, project_type, yml_project_path, env_categories, project_types, loaded_project_path
-from library.appfunc import assets_data, find_project_path_and_type, marketplace_directories, all_directories
+from arUtil import ArUtil, APPS_DIR, ICONS_PATH
+
+from Git_PackForge_Pipeline.library.apps.ui.stylesheet import get_stylesheet
+from Git_PackForge_Pipeline.library.appfunc import ue_meshes_data, marketplace_directories, all_directories, normalize_paths, get_directory
+from Git_PackForge_Pipeline.library.appdata import yml_project_path, ENV_CATEGORIES, load_config_data, PROJECTS_DATA
+
+(projects_root, _, loaded_project, loaded_project_path, loaded_project_name, project_type, 
+ files_name, marketplace_name, selected_tab, screenshot_dir_base, project_path) = load_config_data()
 
 from ruamel.yaml import YAML
 yaml = YAML()
 yaml.preserve_quotes = True
+
 with open(yml_project_path, 'r', encoding='utf-8') as stream:
     project_data = yaml.load(stream)
 
 TITLE = os.path.splitext(os.path.basename(__file__))[0]
 
+
 class ArType(ArUtil):
     def __init__(self):
         super(ArType, self).__init__()
-        path_ui = CURRENT_DIR + '/ui/' + TITLE + '.ui'
-
+        path_ui = APPS_DIR + '/ui/' + TITLE + '.ui'
         self.wgType = QtCompat.loadUi(path_ui)
-
         self.wgHeader.setWindowTitle(TITLE)
-
-        with open(yml_project_path, 'r', encoding='utf-8') as stream:
-            project_data = yaml.load(stream)
-        self.project_root = project_data['project_root']
-        self.loaded_project = project_data['loaded_project']
-        self.marketplace_name = project_data['marketplace_name']
 
         # ADD to layout
         self.wgHeader.layMain.addWidget(self.wgType)
 
+        with open(yml_project_path, 'r', encoding='utf-8') as stream:
+            project_data = yaml.load(stream)
+        previous_tab = project_data['selected_tab']
         #***************************************************************
         # SIGNALS
         self.wgType.stkTabArch.setCurrentIndex(0)
@@ -52,55 +56,38 @@ class ArType(ArUtil):
         # UI
         self.open_Main()
         self.display_projects()
+        self.display_assets_number(self.selected_tab)
 
         self.wgType.wgtSpacer.hide()
         self.wgType.wgtSettings.hide()
-        self.wgType.btnSetProject.hide()
+        self.wgType.btnProject.hide()
 
-        # show number of unique assets and interactive assets (blueprints)
-        self.wgType.lblUniqueMeshesNumber.setText(str(self.display_assets_number('assets')))
-        self.wgType.lblInteractiveMeshesNumber.setText(str(self.display_assets_number('blueprints')))
-
-        # update selected tab in yml when changing tab
-        current_widget = self.wgType.tabWidget.currentWidget()
-        self.update_project_yml_selected_tab(current_widget.objectName())
-        self.wgType.tabWidget.currentChanged.connect(lambda index: self.update_project_yml_selected_tab(index))
-        self.wgType.tabWidget.currentChanged.connect(lambda widget: self.update_project_yml_selected_tab(self.wgType.tabWidget.widget(widget).objectName()))
+        for index, env_cat in enumerate(ENV_CATEGORIES):
+            if env_cat == previous_tab:
+                self.wgType.tabWidget.setCurrentIndex(index)
+                break
+        # update at user interaction
+        self.wgType.tabWidget.currentChanged.connect(lambda index: self.on_tab_changed(index))
         
 
     #***************************************************************
     # FUNCTIONS
-
-    # CREATE PROJECT SECTION
-    def press_create_btnSetProject(self, app):
+    """CREATE PROJECT SECTION"""
+    def press_create_btnProject(self, app):
         radio_buttons = [self.wgType.radEnvironment, self.wgType.radProps, self.wgType.radScans, self.wgType.radCharacters]
-        new_project_type_initial = None
 
         for radio in radio_buttons:
             if radio.isChecked():
                 radio_lower = radio.text().lower()
+                for project_type_initial, (project_type, _) in PROJECTS_DATA.items():
+                    if radio_lower in project_type.lower():
 
-                for keys, values in project_type_dir.items():
-                    radio_lower = radio.text().lower()
-                    
-                    if radio_lower in values.lower():
-                        if not os.path.exists(values):
-                            os.makedirs(values)         
+                        if not os.path.exists(self.projects_root):
+                            os.makedirs(self.projects_root)         
 
-                        new_project_type_initial = keys
-                        project_type_path = values
-
-        if new_project_type_initial == 'E':
-            new_project_type = 'Environment'
-
-        if new_project_type_initial == 'P':
-            new_project_type = 'Props'
-
-        if new_project_type_initial == 'S':
-            new_project_type = '3Dscans'
-
-        if new_project_type_initial == 'C':
-            new_project_type = 'Characters'
+                        new_project_type = project_type
+                        project_type_path = self.projects_root + '/' + project_type
+                        new_project_type_initial = project_type_initial
 
         new_project_name = self.wgType.linRootPath.text().replace(' ', '_')
         new_files_name = self.wgType.linMarketplaceName.text().title().replace(' ', '')
@@ -110,39 +97,37 @@ class ArType(ArUtil):
             self.wgHeader.lblFeedback.setText('Fill all the fields')
             return
 
-        projects = os.listdir(project_type_path)
+        if not os.path.exists(project_type_path):
+            os.makedirs(project_type_path)
+
+        # assemble new project name
+        projects = os.listdir(project_type_path)  # find the existing projects in Environment or Props etc
         projects_versions = []
         if projects:
             for project in projects:
                 projects_versions.append(project.split('__')[0].split('_')[-1])
-
                 new_version = f'{(int(max(sorted(projects_versions))) + 1):03d}'
             new_project_folder = f'{new_project_type_initial}_{current_year}_{new_version}__{new_project_name}'
-
         else:
             new_project_folder = f'{new_project_type_initial}_{current_year}_001__{new_project_name}'
-
-        new_marketplace_name = new_project_name
         new_project_path = project_type_path + '/' + new_project_folder
 
-        # check if the project folder exists
-        matched_directories = all_directories(new_project_path, new_project_type, new_marketplace_name)
+        # create new project folders
+        matched_directories = all_directories(new_project_path, new_project_type, new_project_name)
         for directory in matched_directories:
             if os.path.exists(directory):
                 self.wgHeader.lblFeedback.setText('Folder already exists')
-
             else:
                 os.makedirs(directory)
-
                 project_data['loaded_project'] = new_project_folder
-                project_data['marketplace_name'] = new_marketplace_name
+                project_data['marketplace_name'] = new_project_name
                 project_data['files_name'] = new_files_name
 
                 with open(yml_project_path, 'w') as outfile:
                     yaml.dump(project_data, outfile)
 
                 self.wgHeader.lblFeedback.setText('Project created!')
-
+        # create yaml for project
         yml_data_path = new_project_path + '/files/data.yml'
 
         yml_data = {'files_name': new_files_name}
@@ -151,25 +136,32 @@ class ArType(ArUtil):
 
         self.press_btnReloadApp(app)
 
-    #***************************************************************
-    # MANAGE PROJECTS SECTION
+
+    """MANAGE PROJECTS SECTION"""
     def press_btnChangeRootPath(self, app):
+
         with open(yml_project_path, 'r', encoding='utf-8') as stream:
             project_data = yaml.load(stream)
 
-        project_data["project_root"] = self.wgType.linRootPath.text()
+        project_data["projects_root"] = normalize_paths(self.wgType.linRootPath.text())
 
-        if os.path.exists(project_data["project_root"]):
+        # reset project variables
+        project_data['loaded_project'] = ''
+        project_data['files_name'] = ''
+        project_data['marketplace_name'] = ''
+
+        if os.path.exists(project_data["projects_root"]):
+
             with open(yml_project_path, 'w') as outfile:
                 yaml.dump(project_data, outfile) 
 
         else:
-            self.wgType.linRootPath.setText(self.project_root)
-
+            self.wgType.linRootPath.setText(projects_root)
         self.press_btnReloadApp(app)
 
 
     def press_btnChangeMarketplaceName(self):
+
         with open(yml_project_path, 'r', encoding='utf-8') as stream:
             project_data = yaml.load(stream)
 
@@ -184,77 +176,98 @@ class ArType(ArUtil):
             yaml.dump(project_data, outfile) 
 
 
-    def display_projects(self):
-        self.list_projects = [self.wgType.listEnvironmentProjects, self.wgType.listPropsProjects, self.wgType.list3DscansProjects, self.wgType.listCharactersProjects]
-
-        self.list_projects_dict = dict(zip(self.list_projects, project_type_dir.values()))
-
-        for keys, values in self.list_projects_dict.items():
-            if os.path.exists(values):
-                projects = os.listdir(values)
-            else:
-                projects = ['']
-
-            for project in projects:
-                keys.addItem(project)
-
-    """
-    SET PROJECT
+    """SET PROJECT
     Project selected in "Manage projects" section in ui:
     - overwrites the "loaded_project" variable in yml
     - finds the "files_name" looking in the files and overwrites it in yml
     - finds the "marketplace_name" looking in the files and overwrites it in yml
-    - reloads the UI 
-    """
-    def press_btnSetProject(self, app):
-        for project in self.list_projects:
-            selected_items = project.selectedItems()
+    - reloads the UI """
+    def press_btnProject(self, app):        
+        # find the project selected in the ui
+        for index, values in enumerate(PROJECTS_DATA.items()):
+            if index == self.wgType.tabWidget.currentIndex():
+                selected_list_project = getattr(self.wgType, list(PROJECTS_DATA.values())[index][1])
+                break
+        selected_project = selected_list_project.selectedItems()
+        if selected_project:
+            new_selected_project = selected_project[0].text()
+            selected_list_project.clearSelection()
+            
+            if self.selected_tab == "Architectural":
+                self.selected_tab == "Environment"
+            if self.selected_tab == "Lamps":
+                self.selected_tab == "3DScans"
+            project_path = projects_root + '/' + self.selected_tab + '/' + new_selected_project 
 
-            if selected_items:
-                selected_item = selected_items[0].text()
-                
-                project.clearSelection()
+            # find files name
+            yml_data_path = project_path + '/files/data.yml'
 
-                project_type_path, _ = find_project_path_and_type(selected_item)
-                project_path = project_type_path + '/' + selected_item 
+            with open(yml_data_path, 'r') as stream:
+                data = yaml.load(stream)
+            data_files_name = data['files_name']
 
-                # find files name
-                yml_data_path = project_path + '/files/data.yml'
-                with open(yml_data_path, 'r') as stream:
-                    data = yaml.load(stream)
-                data_files_name = data['files_name']
+            # find marketplace name
+            marketplace_path = project_path + '/marketplace'
+            marketplace_versions = os.listdir(marketplace_path)
+            marketplace_name = os.listdir(marketplace_path + '/' + max(sorted(marketplace_versions)))[0]
 
-                # find marketplace name
-                marketplace_path = project_path + '/marketplace'
-                marketplace_versions = os.listdir(marketplace_path)
-                marketplace_name = os.listdir(marketplace_path + '/' + max(sorted(marketplace_versions)))[0]
+            # update project.yml
+            project_data['loaded_project'] = new_selected_project
+            project_data['files_name'] = data_files_name
+            project_data['marketplace_name'] = marketplace_name
 
-                # update project.yml
-                project_data['loaded_project'] = selected_item
-                project_data['files_name'] = data_files_name
-                project_data['marketplace_name'] = marketplace_name
+            with open(yml_project_path, 'w') as outfile:
+                yaml.dump(project_data, outfile) 
 
-                with open(yml_project_path, 'w') as outfile:
-                    yaml.dump(project_data, outfile) 
-
-                # update UI
-                self.wgHeader.btnOpenProjectFolder.setText(selected_item)
-                self.wgHeader.btnOpenProjectFolder.clicked.connect(lambda: self.press_btnOpenProjectFolder(project_path))
-                self.wgType.linMarketplaceName.setText(marketplace_name)
+            # update UI
+            self.wgHeader.btnOpenProjectFolder.setText(new_selected_project)
+            self.wgHeader.btnOpenProjectFolder.clicked.connect(lambda p=project_path: self.press_btnOpenProjectFolder(p))
+            self.wgType.linMarketplaceName.setText(marketplace_name)
 
         self.press_btnReloadApp(app)
         return
 
+
     #*********************************************************************************************************************************
+    # UI
+    def on_tab_changed(self, index):
+        self.selected_tab = self.wgType.tabWidget.tabText(index)        
+        self.update_project_yml_selected_tab(self.selected_tab)
+        self.display_assets_number(self.selected_tab)
+
+    def on_Main_Manage_changed(self):
+        current_index = self.wgType.tabWidget.currentIndex()
+        self.selected_tab = self.wgType.tabWidget.tabText(current_index)
+        self.update_project_yml_selected_tab(self.selected_tab)
+
+
+    def display_projects(self):
+        for index, ( _, (project_type, layout)) in enumerate(PROJECTS_DATA.items()):
+            project_path_per_type = f'{self.projects_root}/{project_type}'
+
+            if os.path.exists(project_path_per_type):
+                projects = os.listdir(project_path_per_type)
+            else:
+                projects = ['']
+
+            for project in projects:
+                layout_widget = getattr(self.wgType, layout)
+                layout_widget.addItem(project)
+
+                # select loaded project at app start
+                if project == loaded_project:
+                    item = layout_widget.findItems(loaded_project, QtCore.Qt.MatchExactly)
+                    layout_widget.setCurrentItem(item[0])
+
+
     def open_Main(self):
-        self.read_yml()
-        self.wgType.btnSetProject.hide()
+        self.wgType.btnProject.hide()
         self.wgHeader.btnBack.setEnabled(False)
         self.wgHeader.btnCreateProjectMenu.setEnabled(True)
         self.wgHeader.btnCreateProjectMenu.setChecked(False) 
         self.wgHeader.btnManageProjectsMenu.setEnabled(True)
         self.wgHeader.btnManageProjectsMenu.setChecked(False) 
-        self.wgHeader.btnBack.setIcon(QtGui.QPixmap(IMG_PATH.format('btn_back_disabled')))
+        self.wgHeader.btnBack.setIcon(QtGui.QPixmap(ICONS_PATH.format('btn_back_disabled')))
 
         # set tabs visibility
         if project_type == 'Environment':
@@ -275,7 +288,7 @@ class ArType(ArUtil):
             self.wgType.tabWidget.setTabVisible(2, False)
             self.wgType.tabWidget.setTabVisible(3, True)
 
-        # for first Load of the app
+        # for first load of the app
         else:
             self.wgType.tabWidget.setTabVisible(0, True)
             self.wgType.tabWidget.setTabVisible(1, True)
@@ -283,7 +296,7 @@ class ArType(ArUtil):
             self.wgType.tabWidget.setTabVisible(3, False)
 
         # set tabs text
-        for index, category in enumerate(env_categories):
+        for index, category in enumerate(ENV_CATEGORIES):
             self.wgType.tabWidget.setTabText(index, category)
 
         self.wgType.tabWidget.show()
@@ -295,36 +308,28 @@ class ArType(ArUtil):
 
         self.wgType.wgtSpacer.hide()
         self.wgType.layDetails.show()
-
-        self.wgHeader.lblFeedback.setText('')
+        self.wgType.layTotal.show()
 
 
     def set_create_manage_tabs(self, action, app):
-        try:
-            self.wgType.btnSetProject.clicked.disconnect()
-        except:
-            pass
-
         if action == 'manage':
-            self.read_yml()
-
             # SIGNALS
-            self.wgType.btnSetProject.clicked.connect(lambda checked, app=app: self.press_btnSetProject(app))
+            self.wgType.btnProject.clicked.connect(lambda checked, app=app: self.press_btnProject(app))
             self.wgHeader.btnBack.clicked.connect(self.open_Main)
+            self.update_project_yml_selected_tab(self.selected_tab)
 
             # UI
             self.wgType.wgtSettings.show()
-            self.wgType.btnSetProject.show()
+            self.wgType.btnProject.show()
             self.wgHeader.btnBack.setEnabled(True)
             self.wgHeader.btnCreateProjectMenu.setEnabled(False)
             self.wgHeader.btnCreateProjectMenu.setChecked(False)
-            self.wgHeader.btnBack.setIcon(QtGui.QPixmap(IMG_PATH.format('btn_back')))
+            self.wgHeader.btnBack.setIcon(QtGui.QPixmap(ICONS_PATH.format('btn_back')))
 
-            for index, proj_type in enumerate(project_types):
+            for index, (proj_type, _) in enumerate(PROJECTS_DATA.values()):
                 self.wgType.tabWidget.setTabText(index, proj_type)
 
             self.wgType.tabWidget.setTabVisible(3, True)
-
             self.wgType.stkTabArch.setCurrentIndex(1)
             self.wgType.stkTabProps.setCurrentIndex(1)
             self.wgType.stkTab3Dscans.setCurrentIndex(1)
@@ -332,95 +337,111 @@ class ArType(ArUtil):
 
             self.wgType.lblRootPath.setText('Root path:')
             self.wgType.lblMarketplaceName.setText('Marketplace folder name:')
-            self.wgType.btnSetProject.setText('Set project')
+            self.wgType.btnProject.setText('Set project')
 
-            self.wgType.linRootPath.setText(self.project_root)
-            self.wgType.linMarketplaceName.setText(self.marketplace_name)
+            self.wgType.linRootPath.setText(projects_root)
+            self.wgType.linMarketplaceName.setText(marketplace_name)
 
             self.wgType.wgtSpacer.hide()
             self.wgType.layDetails.hide()
+            self.wgType.layTotal.hide()
             self.wgType.btnChangeRootPath.show()
             self.wgType.btnChangeMarketplaceName.show()
             self.wgType.wgtCreateProject.hide()
             for index in range (0, 4):
                 self.wgType.tabWidget.setTabVisible(index, True)
-
+        self.on_Main_Manage_changed()
 
         if action == 'create':
-            self.read_yml()
-
             # SIGNALS
-            self.wgType.btnSetProject.clicked.connect(lambda checked, app=app: self.press_create_btnSetProject(app))
+            self.wgType.btnProject.clicked.connect(lambda checked, app=app: self.press_create_btnProject(app))
             self.wgHeader.btnBack.clicked.connect(self.open_Main)
 
             # UI
             self.wgType.wgtSettings.show()
-            self.wgType.btnSetProject.show()
+            self.wgType.btnProject.show()
             self.wgHeader.btnBack.setEnabled(True)
             self.wgHeader.btnManageProjectsMenu.setEnabled(False)
             self.wgHeader.btnManageProjectsMenu.setChecked(False)
-            self.wgHeader.btnBack.setIcon(QtGui.QPixmap(IMG_PATH.format('btn_back')))
+            self.wgHeader.btnBack.setIcon(QtGui.QPixmap(ICONS_PATH.format('btn_back')))
 
             self.wgType.lblRootPath.setText('Name of the project:')
             self.wgType.lblMarketplaceName.setText('Files name:')
-            self.wgType.btnSetProject.setText('Create')
+            self.wgType.btnProject.setText('Create')
 
             self.wgType.linRootPath.setText('')
             self.wgType.linMarketplaceName.setText('')
 
             self.wgType.wgtSpacer.show()
             self.wgType.layDetails.hide()
+            self.wgType.layTotal.hide()
             self.wgType.wgtCreateProject.show()
             self.wgType.btnChangeRootPath.hide()
             self.wgType.btnChangeMarketplaceName.hide()
             self.wgType.tabWidget.hide()
 
+
     #*********************************************************************************************************************************
-    def display_assets_number(self, asset_type):
-        assets_in_directory, _, bp_assets_in_directory, _ = assets_data(project_type.lower())
-        
-        if asset_type == 'assets':
-            if assets_in_directory:
-                return len(assets_in_directory)
-            
+    def display_assets_number(self, tab_name):
+        ue_meshes, blueprints_data = ue_meshes_data(tab_name.lower())
+
+        # NUMBER UNIQUE MESHES
+        if ue_meshes:
+            self.wgType.lblUniqueMeshesNumber.setText(str(len(ue_meshes)))
+        else:
+             self.wgType.lblUniqueMeshesNumber.setText(str(0))
+
+        # NUMBER BLUEPRINTS
+        if blueprints_data:
+            if blueprints_data.keys():
+                self.wgType.lblInteractiveMeshesNumber.setText(str(len(blueprints_data.keys())))
             else:
-                assets_in_directory = 0
-                return assets_in_directory
-            
-        if asset_type == 'blueprints':
-            if bp_assets_in_directory:
-                return len(bp_assets_in_directory)
-            
-            else:
-                bp_assets_in_directory = 0
-                return bp_assets_in_directory
+                self.wgType.lblInteractiveMeshesNumber.setText(str(0))
+
+        # TOTAL NUMBER UNIQUE MESHES
+        ue_paths = get_directory('', 'UE', 'Meshes')
+        static_meshes = []
+        if isinstance(ue_paths, list):
+            for ue_path in ue_paths:
+                for mesh in os.listdir(ue_path):
+                    if mesh.startswith('SM'):
+                        static_meshes.append(mesh)
+        else:
+            for mesh in os.listdir(ue_paths):
+                if mesh.startswith('SM'):
+                    static_meshes.append(mesh)
+
+        if static_meshes:
+            self.wgType.lblTotalUniqueMeshesNumber.setText(str(len(static_meshes)))
+
+        # TOTAL NUMBER BLUEPRINTS
+        ue_bp_paths = get_directory('', 'UE', 'Blueprints')
+        blueprints = []
+        if isinstance(ue_bp_paths, list):
+            for ue_bp_path in ue_bp_paths:
+                for bp in os.listdir(ue_bp_path):
+                    if bp.startswith('BP'):
+                        blueprints.append(bp)
+        else:
+            for bp in os.listdir(ue_bp_paths):
+                if bp.startswith('BP'):
+                    blueprints.append(bp)
+        if blueprints:
+            self.wgType.lblTotalInteractiveMeshesNumber.setText(str(len(blueprints)))
+
 
     #*********************************************************************************************************************************
     # YAML
-    def update_project_yml_selected_tab(self, widget):
-        if widget == 'tabArchitectural':
-            project_data["selected_tab"] = 'Architectural'
-
-        elif widget == 'tabProps':
-            project_data["selected_tab"] = 'Props'
-
-        elif widget == 'tabLamps':
-            project_data["selected_tab"] = 'Lamps'
+    def update_project_yml_selected_tab(self, tab_text):
+        project_data["selected_tab"] = tab_text
 
         # update the yaml file
         with open(yml_project_path, 'w') as outfile:
             yaml.dump(project_data, outfile)            
-            
-
-    def read_yml(self):
-        with open(yml_project_path, 'r', encoding='utf-8') as stream:
-            project_data = yaml.load(stream)
-        self.project_root = project_data['project_root']
-        self.loaded_project = project_data['loaded_project']
-        self.marketplace_name = project_data['marketplace_name']
 
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     ar_type = ArType()
+    app.setStyleSheet(get_stylesheet())
     app.exec()

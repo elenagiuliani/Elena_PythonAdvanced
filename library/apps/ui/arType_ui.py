@@ -26,7 +26,7 @@ class Ui_arType(object):
     def setupUi(self, arType):
         if not arType.objectName():
             arType.setObjectName(u"arType")
-        arType.resize(629, 421)
+        arType.resize(629, 522)
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -212,17 +212,7 @@ class Ui_arType(object):
         self.tabWidget.setSizeIncrement(QSize(0, 0))
         self.tabWidget.setBaseSize(QSize(0, 0))
         self.tabWidget.setFocusPolicy(Qt.FocusPolicy.TabFocus)
-        self.tabWidget.setStyleSheet(u"/* \n"
-"my_white     = rgb(240, 240, 240);\n"
-"my_black     = rgb(24, 25, 28);\n"
-"dark_green  = rgb(31, 49, 0);\n"
-"light_green  = rgb(71, 89, 30);\n"
-" */\n"
-"\n"
-"QWidget {\n"
-"background-color: rgb(24, 25, 28);  /* widgets background color */\n"
-"}\n"
-"")
+        self.tabWidget.setStyleSheet(u"")
         self.tabWidget.setTabPosition(QTabWidget.TabPosition.North)
         self.tabWidget.setTabShape(QTabWidget.TabShape.Triangular)
         self.tabWidget.setElideMode(Qt.TextElideMode.ElideNone)
@@ -264,7 +254,7 @@ class Ui_arType(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollAreaWidgetContents_2 = QWidget()
         self.scrollAreaWidgetContents_2.setObjectName(u"scrollAreaWidgetContents_2")
-        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 72, 72))
+        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 274, 348))
         self.gridLayout_10 = QGridLayout(self.scrollAreaWidgetContents_2)
         self.gridLayout_10.setObjectName(u"gridLayout_10")
         self.listEnvironmentProjects = QListWidget(self.scrollAreaWidgetContents_2)
@@ -315,7 +305,7 @@ class Ui_arType(object):
         self.scrollArea_2.setWidgetResizable(True)
         self.scrollAreaWidgetContents_5 = QWidget()
         self.scrollAreaWidgetContents_5.setObjectName(u"scrollAreaWidgetContents_5")
-        self.scrollAreaWidgetContents_5.setGeometry(QRect(0, 0, 72, 72))
+        self.scrollAreaWidgetContents_5.setGeometry(QRect(0, 0, 274, 348))
         self.gridLayout_11 = QGridLayout(self.scrollAreaWidgetContents_5)
         self.gridLayout_11.setObjectName(u"gridLayout_11")
         self.listPropsProjects = QListWidget(self.scrollAreaWidgetContents_5)
@@ -366,7 +356,7 @@ class Ui_arType(object):
         self.scrollArea_3.setWidgetResizable(True)
         self.scrollAreaWidgetContents_6 = QWidget()
         self.scrollAreaWidgetContents_6.setObjectName(u"scrollAreaWidgetContents_6")
-        self.scrollAreaWidgetContents_6.setGeometry(QRect(0, 0, 72, 72))
+        self.scrollAreaWidgetContents_6.setGeometry(QRect(0, 0, 274, 348))
         self.gridLayout_12 = QGridLayout(self.scrollAreaWidgetContents_6)
         self.gridLayout_12.setObjectName(u"gridLayout_12")
         self.list3DscansProjects = QListWidget(self.scrollAreaWidgetContents_6)
@@ -416,7 +406,7 @@ class Ui_arType(object):
         self.scrollArea_4.setWidgetResizable(True)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 72, 72))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 274, 348))
         self.gridLayout_15 = QGridLayout(self.scrollAreaWidgetContents)
         self.gridLayout_15.setObjectName(u"gridLayout_15")
         self.gridLayout_15.setContentsMargins(0, 0, 0, 0)
@@ -453,6 +443,7 @@ class Ui_arType(object):
         self.widget_3.setObjectName(u"widget_3")
         sizePolicy4.setHeightForWidth(self.widget_3.sizePolicy().hasHeightForWidth())
         self.widget_3.setSizePolicy(sizePolicy4)
+        self.widget_3.setMinimumSize(QSize(150, 0))
         self.widget_3.setMaximumSize(QSize(150, 16777215))
         self.gridLayout_20 = QGridLayout(self.widget_3)
         self.gridLayout_20.setObjectName(u"gridLayout_20")
@@ -487,6 +478,7 @@ class Ui_arType(object):
 
         self._2 = QGridLayout()
         self._2.setObjectName(u"_2")
+        self._2.setVerticalSpacing(0)
         self.lblInteractiveMeshesNumber = QLabel(self.layDetails)
         self.lblInteractiveMeshesNumber.setObjectName(u"lblInteractiveMeshesNumber")
         self.lblInteractiveMeshesNumber.setMargin(5)
@@ -500,6 +492,7 @@ class Ui_arType(object):
 
         self.lblUniqueMeshesNumber = QLabel(self.layDetails)
         self.lblUniqueMeshesNumber.setObjectName(u"lblUniqueMeshesNumber")
+        self.lblUniqueMeshesNumber.setAlignment(Qt.AlignmentFlag.AlignLeading|Qt.AlignmentFlag.AlignLeft|Qt.AlignmentFlag.AlignVCenter)
         self.lblUniqueMeshesNumber.setMargin(5)
 
         self._2.addWidget(self.lblUniqueMeshesNumber, 2, 1, 1, 1)
@@ -524,26 +517,79 @@ class Ui_arType(object):
 
         self.layDetails_2.addItem(self.verticalSpacer_5)
 
+        self.layTotal = QWidget(self.widget_3)
+        self.layTotal.setObjectName(u"layTotal")
+        sizePolicy2.setHeightForWidth(self.layTotal.sizePolicy().hasHeightForWidth())
+        self.layTotal.setSizePolicy(sizePolicy2)
+        self.layTotal.setMinimumSize(QSize(0, 90))
+        self.verticalLayout_10 = QVBoxLayout(self.layTotal)
+        self.verticalLayout_10.setObjectName(u"verticalLayout_10")
+        self.verticalLayout_10.setContentsMargins(0, -1, 0, -1)
+        self.label = QLabel(self.layTotal)
+        self.label.setObjectName(u"label")
+
+        self.verticalLayout_10.addWidget(self.label)
+
+        self.line = QFrame(self.layTotal)
+        self.line.setObjectName(u"line")
+        self.line.setFrameShape(QFrame.Shape.HLine)
+        self.line.setFrameShadow(QFrame.Shadow.Sunken)
+
+        self.verticalLayout_10.addWidget(self.line)
+
+        self._3 = QGridLayout()
+        self._3.setObjectName(u"_3")
+        self._3.setVerticalSpacing(0)
+        self.label_3 = QLabel(self.layTotal)
+        self.label_3.setObjectName(u"label_3")
+
+        self._3.addWidget(self.label_3, 3, 0, 1, 1)
+
+        self.lblTotalInteractiveMeshesNumber = QLabel(self.layTotal)
+        self.lblTotalInteractiveMeshesNumber.setObjectName(u"lblTotalInteractiveMeshesNumber")
+        self.lblTotalInteractiveMeshesNumber.setAlignment(Qt.AlignmentFlag.AlignLeading|Qt.AlignmentFlag.AlignLeft|Qt.AlignmentFlag.AlignVCenter)
+        self.lblTotalInteractiveMeshesNumber.setMargin(5)
+
+        self._3.addWidget(self.lblTotalInteractiveMeshesNumber, 3, 1, 1, 1)
+
+        self.lblTotalUniqueMeshesNumber = QLabel(self.layTotal)
+        self.lblTotalUniqueMeshesNumber.setObjectName(u"lblTotalUniqueMeshesNumber")
+        self.lblTotalUniqueMeshesNumber.setAlignment(Qt.AlignmentFlag.AlignLeading|Qt.AlignmentFlag.AlignLeft|Qt.AlignmentFlag.AlignVCenter)
+        self.lblTotalUniqueMeshesNumber.setMargin(5)
+
+        self._3.addWidget(self.lblTotalUniqueMeshesNumber, 2, 1, 1, 1)
+
+        self.label_2 = QLabel(self.layTotal)
+        self.label_2.setObjectName(u"label_2")
+
+        self._3.addWidget(self.label_2, 2, 0, 1, 1)
+
+
+        self.verticalLayout_10.addLayout(self._3)
+
+
+        self.layDetails_2.addWidget(self.layTotal)
+
         self.widget_10 = QWidget(self.widget_3)
         self.widget_10.setObjectName(u"widget_10")
         sizePolicy3.setHeightForWidth(self.widget_10.sizePolicy().hasHeightForWidth())
         self.widget_10.setSizePolicy(sizePolicy3)
-        self.widget_10.setMinimumSize(QSize(0, 50))
+        self.widget_10.setMinimumSize(QSize(0, 0))
         self.widget_10.setMaximumSize(QSize(300, 300))
         self.widget_10.setSizeIncrement(QSize(0, 0))
         self.widget_10.setBaseSize(QSize(0, 0))
         self.gridLayout_21 = QGridLayout(self.widget_10)
         self.gridLayout_21.setSpacing(0)
         self.gridLayout_21.setObjectName(u"gridLayout_21")
-        self.gridLayout_21.setContentsMargins(0, 0, 0, 0)
-        self.btnSetProject = QPushButton(self.widget_10)
-        self.btnSetProject.setObjectName(u"btnSetProject")
-        sizePolicy3.setHeightForWidth(self.btnSetProject.sizePolicy().hasHeightForWidth())
-        self.btnSetProject.setSizePolicy(sizePolicy3)
-        self.btnSetProject.setMinimumSize(QSize(90, 0))
-        self.btnSetProject.setMaximumSize(QSize(90, 16777215))
+        self.gridLayout_21.setContentsMargins(0, 0, 0, 9)
+        self.btnProject = QPushButton(self.widget_10)
+        self.btnProject.setObjectName(u"btnProject")
+        sizePolicy3.setHeightForWidth(self.btnProject.sizePolicy().hasHeightForWidth())
+        self.btnProject.setSizePolicy(sizePolicy3)
+        self.btnProject.setMinimumSize(QSize(90, 0))
+        self.btnProject.setMaximumSize(QSize(90, 16777215))
 
-        self.gridLayout_21.addWidget(self.btnSetProject, 0, 0, 1, 1)
+        self.gridLayout_21.addWidget(self.btnProject, 0, 0, 1, 1)
 
 
         self.layDetails_2.addWidget(self.widget_10)
@@ -597,6 +643,11 @@ class Ui_arType(object):
         self.lblUniqueMeshesNumber.setText(QCoreApplication.translate("arType", u"0", None))
         self.lblInteractiveMeshes.setText(QCoreApplication.translate("arType", u"Interactive meshes", None))
         self.lblUniqueMeshes.setText(QCoreApplication.translate("arType", u"Unique meshes", None))
-        self.btnSetProject.setText(QCoreApplication.translate("arType", u"Set project", None))
+        self.label.setText(QCoreApplication.translate("arType", u"Total", None))
+        self.label_3.setText(QCoreApplication.translate("arType", u"Interactive meshes", None))
+        self.lblTotalInteractiveMeshesNumber.setText(QCoreApplication.translate("arType", u"0", None))
+        self.lblTotalUniqueMeshesNumber.setText(QCoreApplication.translate("arType", u"0", None))
+        self.label_2.setText(QCoreApplication.translate("arType", u"Unique meshes", None))
+        self.btnProject.setText(QCoreApplication.translate("arType", u"Set project", None))
     # retranslateUi
 

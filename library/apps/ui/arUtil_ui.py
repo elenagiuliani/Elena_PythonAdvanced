@@ -24,7 +24,7 @@ class Ui_arUtil(object):
     def setupUi(self, arUtil):
         if not arUtil.objectName():
             arUtil.setObjectName(u"arUtil")
-        arUtil.resize(649, 457)
+        arUtil.resize(623, 552)
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -33,113 +33,41 @@ class Ui_arUtil(object):
         icon = QIcon()
         icon.addFile(u":/images/icons/logo_store.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         arUtil.setWindowIcon(icon)
-        arUtil.setStyleSheet(u"/* \n"
-"my_white     = rgb(240, 240, 240);\n"
-"my_black     = rgb(24, 25, 28);\n"
-"dark_green  = rgb(31, 49, 0);\n"
-"light_green  = rgb(71, 89, 30);\n"
-" */\n"
-"\n"
-"QWidget {\n"
-"color: rgb(240, 240, 240);  /* push btn text color */\n"
-"background-color: rgb(28, 29, 32);  /* widgets background color */\n"
-"}\n"
-"\n"
-"/* push btn */\n"
-"QPushButton:hover {background-color: rgb(31, 49, 0); }\n"
-"QPushButton:checked {background-color: rgb(71, 89, 30);}\n"
-"QPushButton:disabled {color: rgb(100, 100, 100);} /* push btn text color, when disabled*/\n"
-"QPushButton { color: rgb(240, 240, 240);}\n"
-"\n"
-"/* tabs */\n"
-"QTabBar::tab:hover {background-color: rgb(31, 49, 0); }\n"
-"QTabBar::tab:selected  {background-color: rgb(71, 89, 30);}\n"
-"\n"
-"/* line \n"
-"4 is for horizontal line (5 for vertical line)*/\n"
-"QFrame[frameShape=\"4\"]{\n"
-"background-color: rgb(240, 240, 240);\n"
-"max-height: 1px;\n"
-"border: none;\n"
-"}\n"
-"QFrame[frameShape=\"5\"]{\n"
-"background-color: rgb(240, 240, 240);\n"
-"max-width: 1px;\n"
-"bo"
-                        "rder: none;\n"
-"}\n"
-"\n"
-"/* scroll bar */\n"
-"QScrollBar:vertical {\n"
-"    background: transparent;\n"
-"    width: 15px;\n"
-"}\n"
-"\n"
-"/* list widget */\n"
-"QListWidget::item:disabled {color: rgb(100, 100, 100); }\n"
-"\n"
-"/* RADIO BUTTONS */\n"
-"QRadioButton::indicator {\n"
-"width: 14px;\n"
-"height: 14px;\n"
-"}\n"
-"/* Unchecked circle */\n"
-"QRadioButton::indicator:unchecked {\n"
-"border: 1px solid #666;\n"
-"border-radius: 7px;\n"
-"background: none;\n"
-"}\n"
-"/* Checked dot */\n"
-"QRadioButton::indicator:checked {\n"
-"border: 1px solid #666;\n"
-"border-radius: 7px;\n"
-"background-color: rgb(71, 89, 30);  /* DOT COLOR HERE */\n"
-"}\n"
-"\n"
-"")
+        arUtil.setStyleSheet(u"")
         self.gridLayout = QGridLayout(arUtil)
         self.gridLayout.setObjectName(u"gridLayout")
-        self.gridLayout.setHorizontalSpacing(2)
+        self.gridLayout.setHorizontalSpacing(10)
         self.gridLayout.setVerticalSpacing(0)
         self.gridLayout.setContentsMargins(0, 7, 0, 0)
-        self.wgFooter = QWidget(arUtil)
-        self.wgFooter.setObjectName(u"wgFooter")
+        self.wgtFooter = QWidget(arUtil)
+        self.wgtFooter.setObjectName(u"wgtFooter")
         sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)
         sizePolicy1.setHorizontalStretch(0)
         sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.wgFooter.sizePolicy().hasHeightForWidth())
-        self.wgFooter.setSizePolicy(sizePolicy1)
-        self.wgFooter.setMinimumSize(QSize(0, 0))
-        self.wgFooter.setMaximumSize(QSize(16777215, 40))
-        self.wgFooter.setStyleSheet(u"/* \n"
-"my_white     = rgb(240, 240, 240);\n"
-"my_black     = rgb(24, 25, 28);\n"
-"dark_green  = rgb(31, 49, 0);\n"
-"light_green  = rgb(71, 89, 30);\n"
-" */\n"
-"\n"
-"QWidget {background-color: rgb(34, 35, 38) ;\n"
-"				border-top: 2px solid  rgb(50, 50, 50);\n"
-"}\n"
-"")
-        self.verticalLayout_3 = QVBoxLayout(self.wgFooter)
+        sizePolicy1.setHeightForWidth(self.wgtFooter.sizePolicy().hasHeightForWidth())
+        self.wgtFooter.setSizePolicy(sizePolicy1)
+        self.wgtFooter.setMinimumSize(QSize(0, 0))
+        self.wgtFooter.setMaximumSize(QSize(16777215, 40))
+        self.wgtFooter.setStyleSheet(u"QWidget {border-top: 2px solid  rgb(50, 50, 50);\n"
+"}")
+        self.verticalLayout_3 = QVBoxLayout(self.wgtFooter)
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
         self.verticalLayout_3.setContentsMargins(0, 0, 0, 0)
-        self.widget = QWidget(self.wgFooter)
-        self.widget.setObjectName(u"widget")
+        self.main_widget = QWidget(self.wgtFooter)
+        self.main_widget.setObjectName(u"main_widget")
         sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Expanding)
         sizePolicy2.setHorizontalStretch(0)
         sizePolicy2.setVerticalStretch(0)
-        sizePolicy2.setHeightForWidth(self.widget.sizePolicy().hasHeightForWidth())
-        self.widget.setSizePolicy(sizePolicy2)
-        self.widget.setMaximumSize(QSize(16777215, 40))
-        self.widget.setStyleSheet(u"QWidget { border: none;}")
-        self.gridLayout_2 = QGridLayout(self.widget)
+        sizePolicy2.setHeightForWidth(self.main_widget.sizePolicy().hasHeightForWidth())
+        self.main_widget.setSizePolicy(sizePolicy2)
+        self.main_widget.setMaximumSize(QSize(16777215, 40))
+        self.main_widget.setStyleSheet(u"QWidget { border: none;}")
+        self.gridLayout_2 = QGridLayout(self.main_widget)
         self.gridLayout_2.setObjectName(u"gridLayout_2")
         self.gridLayout_2.setContentsMargins(9, 0, 9, 0)
         self.horizontalLayout_4 = QHBoxLayout()
         self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
-        self.label_2 = QLabel(self.widget)
+        self.label_2 = QLabel(self.main_widget)
         self.label_2.setObjectName(u"label_2")
         sizePolicy1.setHeightForWidth(self.label_2.sizePolicy().hasHeightForWidth())
         self.label_2.setSizePolicy(sizePolicy1)
@@ -153,7 +81,7 @@ class Ui_arUtil(object):
 
         self.horizontalLayout_4.addItem(self.horizontalSpacer_2)
 
-        self.btnCgtraderLink = QPushButton(self.widget)
+        self.btnCgtraderLink = QPushButton(self.main_widget)
         self.btnCgtraderLink.setObjectName(u"btnCgtraderLink")
         sizePolicy3 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
         sizePolicy3.setHorizontalStretch(0)
@@ -170,7 +98,7 @@ class Ui_arUtil(object):
 
         self.horizontalLayout_4.addWidget(self.btnCgtraderLink)
 
-        self.btnFabLink = QPushButton(self.widget)
+        self.btnFabLink = QPushButton(self.main_widget)
         self.btnFabLink.setObjectName(u"btnFabLink")
         sizePolicy3.setHeightForWidth(self.btnFabLink.sizePolicy().hasHeightForWidth())
         self.btnFabLink.setSizePolicy(sizePolicy3)
@@ -184,7 +112,7 @@ class Ui_arUtil(object):
 
         self.horizontalLayout_4.addWidget(self.btnFabLink)
 
-        self.btnHelp = QPushButton(self.widget)
+        self.btnHelp = QPushButton(self.main_widget)
         self.btnHelp.setObjectName(u"btnHelp")
         sizePolicy3.setHeightForWidth(self.btnHelp.sizePolicy().hasHeightForWidth())
         self.btnHelp.setSizePolicy(sizePolicy3)
@@ -198,18 +126,33 @@ class Ui_arUtil(object):
 
         self.horizontalLayout_4.addWidget(self.btnHelp)
 
+        self.btnReloadApp = QPushButton(self.main_widget)
+        self.btnReloadApp.setObjectName(u"btnReloadApp")
+        sizePolicy4 = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+        sizePolicy4.setHorizontalStretch(0)
+        sizePolicy4.setVerticalStretch(0)
+        sizePolicy4.setHeightForWidth(self.btnReloadApp.sizePolicy().hasHeightForWidth())
+        self.btnReloadApp.setSizePolicy(sizePolicy4)
+        self.btnReloadApp.setMinimumSize(QSize(25, 25))
+        self.btnReloadApp.setMaximumSize(QSize(25, 25))
+        icon3 = QIcon()
+        icon3.addFile(u":/images/icons/btn_reload_app.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.btnReloadApp.setIcon(icon3)
 
-        self.gridLayout_2.addLayout(self.horizontalLayout_4, 0, 0, 1, 1)
+        self.horizontalLayout_4.addWidget(self.btnReloadApp)
 
 
-        self.verticalLayout_3.addWidget(self.widget)
+        self.gridLayout_2.addLayout(self.horizontalLayout_4, 0, 1, 1, 1)
+
+
+        self.verticalLayout_3.addWidget(self.main_widget)
 
         self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
         self.verticalLayout_3.addItem(self.verticalSpacer)
 
 
-        self.gridLayout.addWidget(self.wgFooter, 6, 0, 1, 1)
+        self.gridLayout.addWidget(self.wgtFooter, 6, 0, 1, 1)
 
         self.lblFeedback = QLabel(arUtil)
         self.lblFeedback.setObjectName(u"lblFeedback")
@@ -237,11 +180,11 @@ class Ui_arUtil(object):
         self.horizontalLayout.setContentsMargins(0, -1, 5, -1)
         self.btnOpenProjectFolder = QPushButton(self.wgUpper)
         self.btnOpenProjectFolder.setObjectName(u"btnOpenProjectFolder")
-        sizePolicy4 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
-        sizePolicy4.setHorizontalStretch(0)
-        sizePolicy4.setVerticalStretch(0)
-        sizePolicy4.setHeightForWidth(self.btnOpenProjectFolder.sizePolicy().hasHeightForWidth())
-        self.btnOpenProjectFolder.setSizePolicy(sizePolicy4)
+        sizePolicy5 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+        sizePolicy5.setHorizontalStretch(0)
+        sizePolicy5.setVerticalStretch(0)
+        sizePolicy5.setHeightForWidth(self.btnOpenProjectFolder.sizePolicy().hasHeightForWidth())
+        self.btnOpenProjectFolder.setSizePolicy(sizePolicy5)
         self.btnOpenProjectFolder.setMinimumSize(QSize(40, 0))
         self.btnOpenProjectFolder.setMaximumSize(QSize(16777215, 16777215))
         font2 = QFont()
@@ -292,27 +235,6 @@ class Ui_arUtil(object):
 
         self.horizontalLayout.addItem(self.horizontalSpacer_4)
 
-        self.btnReloadApp = QPushButton(self.wgUpper)
-        self.btnReloadApp.setObjectName(u"btnReloadApp")
-        sizePolicy5 = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
-        sizePolicy5.setHorizontalStretch(0)
-        sizePolicy5.setVerticalStretch(0)
-        sizePolicy5.setHeightForWidth(self.btnReloadApp.sizePolicy().hasHeightForWidth())
-        self.btnReloadApp.setSizePolicy(sizePolicy5)
-        self.btnReloadApp.setMinimumSize(QSize(25, 25))
-        self.btnReloadApp.setMaximumSize(QSize(25, 25))
-        icon3 = QIcon()
-        icon3.addFile(u":/images/icons/btn_reload_app.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.btnReloadApp.setIcon(icon3)
-
-        self.horizontalLayout.addWidget(self.btnReloadApp)
-
-
-        self.verticalLayout_4.addLayout(self.horizontalLayout)
-
-        self.horizontalLayout_2 = QHBoxLayout()
-        self.horizontalLayout_2.setSpacing(0)
-        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.btnBack = QPushButton(self.wgUpper)
         self.btnBack.setObjectName(u"btnBack")
         self.btnBack.setEnabled(False)
@@ -322,8 +244,14 @@ class Ui_arUtil(object):
         self.btnBack.setIcon(icon4)
         self.btnBack.setFlat(False)
 
-        self.horizontalLayout_2.addWidget(self.btnBack)
+        self.horizontalLayout.addWidget(self.btnBack)
 
+
+        self.verticalLayout_4.addLayout(self.horizontalLayout)
+
+        self.horizontalLayout_2 = QHBoxLayout()
+        self.horizontalLayout_2.setSpacing(0)
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.horizontalSpacer_3 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout_2.addItem(self.horizontalSpacer_3)
@@ -381,6 +309,10 @@ class Ui_arUtil(object):
         self.btnHelp.setWhatsThis("")
 #endif // QT_CONFIG(whatsthis)
         self.btnHelp.setText(QCoreApplication.translate("arUtil", u"?", None))
+#if QT_CONFIG(tooltip)
+        self.btnReloadApp.setToolTip(QCoreApplication.translate("arUtil", u"Reload app", None))
+#endif // QT_CONFIG(tooltip)
+        self.btnReloadApp.setText("")
         self.lblFeedback.setText("")
 #if QT_CONFIG(tooltip)
         self.btnOpenProjectFolder.setToolTip(QCoreApplication.translate("arUtil", u"Current loaded project", None))
@@ -388,10 +320,6 @@ class Ui_arUtil(object):
         self.btnOpenProjectFolder.setText(QCoreApplication.translate("arUtil", u"Project name", None))
         self.btnManageProjectsMenu.setText(QCoreApplication.translate("arUtil", u"Manage projects", None))
         self.btnCreateProjectMenu.setText(QCoreApplication.translate("arUtil", u"Create project", None))
-#if QT_CONFIG(tooltip)
-        self.btnReloadApp.setToolTip(QCoreApplication.translate("arUtil", u"Reload app", None))
-#endif // QT_CONFIG(tooltip)
-        self.btnReloadApp.setText("")
         self.btnBack.setText("")
     # retranslateUi
 

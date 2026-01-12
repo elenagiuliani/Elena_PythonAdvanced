@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>649</width>
-    <height>457</height>
+    <width>623</width>
+    <height>552</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -24,69 +24,7 @@
     <normaloff>:/images/icons/logo_store.png</normaloff>:/images/icons/logo_store.png</iconset>
   </property>
   <property name="styleSheet">
-   <string notr="true">/* 
-my_white     = rgb(240, 240, 240);
-my_black     = rgb(24, 25, 28);
-dark_green  = rgb(31, 49, 0);
-light_green  = rgb(71, 89, 30);
- */
-
-QWidget {
-color: rgb(240, 240, 240);  /* push btn text color */
-background-color: rgb(28, 29, 32);  /* widgets background color */
-}
-
-/* push btn */
-QPushButton:hover {background-color: rgb(31, 49, 0); }
-QPushButton:checked {background-color: rgb(71, 89, 30);}
-QPushButton:disabled {color: rgb(100, 100, 100);} /* push btn text color, when disabled*/
-QPushButton { color: rgb(240, 240, 240);}
-
-/* tabs */
-QTabBar::tab:hover {background-color: rgb(31, 49, 0); }
-QTabBar::tab:selected  {background-color: rgb(71, 89, 30);}
-
-/* line 
-4 is for horizontal line (5 for vertical line)*/
-QFrame[frameShape=&quot;4&quot;]{
-background-color: rgb(240, 240, 240);
-max-height: 1px;
-border: none;
-}
-QFrame[frameShape=&quot;5&quot;]{
-background-color: rgb(240, 240, 240);
-max-width: 1px;
-border: none;
-}
-
-/* scroll bar */
-QScrollBar:vertical {
-    background: transparent;
-    width: 15px;
-}
-
-/* list widget */
-QListWidget::item:disabled {color: rgb(100, 100, 100); }
-
-/* RADIO BUTTONS */
-QRadioButton::indicator {
-width: 14px;
-height: 14px;
-}
-/* Unchecked circle */
-QRadioButton::indicator:unchecked {
-border: 1px solid #666;
-border-radius: 7px;
-background: none;
-}
-/* Checked dot */
-QRadioButton::indicator:checked {
-border: 1px solid #666;
-border-radius: 7px;
-background-color: rgb(71, 89, 30);  /* DOT COLOR HERE */
-}
-
-</string>
+   <string notr="true"/>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <property name="leftMargin">
@@ -102,13 +40,13 @@ background-color: rgb(71, 89, 30);  /* DOT COLOR HERE */
     <number>0</number>
    </property>
    <property name="horizontalSpacing">
-    <number>2</number>
+    <number>10</number>
    </property>
    <property name="verticalSpacing">
     <number>0</number>
    </property>
    <item row="6" column="0">
-    <widget class="QWidget" name="wgFooter" native="true">
+    <widget class="QWidget" name="wgtFooter" native="true">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
        <horstretch>0</horstretch>
@@ -128,17 +66,8 @@ background-color: rgb(71, 89, 30);  /* DOT COLOR HERE */
       </size>
      </property>
      <property name="styleSheet">
-      <string notr="true">/* 
-my_white     = rgb(240, 240, 240);
-my_black     = rgb(24, 25, 28);
-dark_green  = rgb(31, 49, 0);
-light_green  = rgb(71, 89, 30);
- */
-
-QWidget {background-color: rgb(34, 35, 38) ;
-				border-top: 2px solid  rgb(50, 50, 50);
-}
-</string>
+      <string notr="true">QWidget {border-top: 2px solid  rgb(50, 50, 50);
+}</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_3">
       <property name="leftMargin">
@@ -154,7 +83,7 @@ QWidget {background-color: rgb(34, 35, 38) ;
        <number>0</number>
       </property>
       <item>
-       <widget class="QWidget" name="widget" native="true">
+       <widget class="QWidget" name="main_widget" native="true">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
           <horstretch>0</horstretch>
@@ -183,7 +112,7 @@ QWidget {background-color: rgb(34, 35, 38) ;
          <property name="bottomMargin">
           <number>0</number>
          </property>
-         <item row="0" column="0">
+         <item row="0" column="1">
           <layout class="QHBoxLayout" name="horizontalLayout_4">
            <item>
             <widget class="QLabel" name="label_2">
@@ -350,6 +279,38 @@ QWidget {background-color: rgb(34, 35, 38) ;
                <width>25</width>
                <height>25</height>
               </size>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btnReloadApp">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>25</width>
+               <height>25</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>25</width>
+               <height>25</height>
+              </size>
+             </property>
+             <property name="toolTip">
+              <string>Reload app</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset resource="../../img/app_imgs.qrc">
+               <normaloff>:/images/icons/btn_reload_app.png</normaloff>:/images/icons/btn_reload_app.png</iconset>
              </property>
             </widget>
            </item>
@@ -562,45 +523,6 @@ QPushButton:hover {
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="btnReloadApp">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>25</width>
-              <height>25</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>25</width>
-              <height>25</height>
-             </size>
-            </property>
-            <property name="toolTip">
-             <string>Reload app</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="icon">
-             <iconset resource="../../img/app_imgs.qrc">
-              <normaloff>:/images/icons/btn_reload_app.png</normaloff>:/images/icons/btn_reload_app.png</iconset>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_2">
-          <property name="spacing">
-           <number>0</number>
-          </property>
-          <item>
            <widget class="QPushButton" name="btnBack">
             <property name="enabled">
              <bool>false</bool>
@@ -620,6 +542,13 @@ QPushButton:hover {
             </property>
            </widget>
           </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <property name="spacing">
+           <number>0</number>
+          </property>
           <item>
            <spacer name="horizontalSpacer_3">
             <property name="orientation">
