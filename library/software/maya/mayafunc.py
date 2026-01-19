@@ -9,6 +9,7 @@ email    : elenagiuliani94@outlook.it
 """
 import os
 import sys
+import subprocess
 import maya.mel as mel
 import maya.cmds as cmds
 
@@ -16,7 +17,7 @@ CURRENT_DIR = os.path.dirname(__file__)
 ROOT_DIR = '\\'.join(CURRENT_DIR.split('\\')[:-4])
 sys.path.append(ROOT_DIR)
 
-from Git_PackForge_Pipeline.library.appdata import ENV_CATEGORIES, load_config_data
+from Git_PackForge_Pipeline.library.appdata import ENV_CATEGORIES, load_config_data, restart_app_bat
 
 (projects_root, project_root, loaded_project, loaded_project_path, loaded_project_name, project_type, 
  files_name, marketplace_name, selected_tab, screenshot_dir_base, project_path) = load_config_data()
@@ -90,7 +91,7 @@ def press_btnIncrementSave(save_type):
     take_screenshot(screenshot_path)
 
 
-#############################################
+# **************************************************************************************************
 def versioning_screenshot(base_name, screenshot_dir):
     base_path = f"{screenshot_dir}/{base_name}.png"
     versioned = []
@@ -127,10 +128,12 @@ def press_btnScreenshot():
     
     def _find_bp_parent(node):
         parent = cmds.listRelatives(node, parent=True)
-        if parent[0].startswith('BP'):
-            return parent
-        else:
-            return None
+        print(f'parent:  {parent}')
+        if parent:
+            if parent[0].startswith('BP'):
+                return parent
+            else:
+                return None
 
     # create screenshot_dir
     if selected[0].startswith('SM'):
@@ -151,15 +154,17 @@ def press_btnScreenshot():
         current_panel = 'modelPanel4'
 
     def _take_mesh_screenshot(obj_name):
+        obj = obj_name
         screenshot_path = versioning_screenshot(obj_name, screenshot_dir)
         cmds.isolateSelect(current_panel, state=1)
         cmds.isolateSelect(current_panel, addSelected=True)
         cmds.refresh(force=True)
 
+        cmds.select(clear=True)
         take_screenshot(screenshot_path)
+        cmds.select(obj)
 
         cmds.isolateSelect(current_panel, state=0)
-        # ********************************************************
 
     if selected[0].startswith('SM'):
         _take_mesh_screenshot(selected[0].split('.')[0])
@@ -176,8 +181,7 @@ def press_btnScreenshot():
     cmds.select(selected)
 
 
-#***************************************************************
-# EXPORT PRIVATE FUNCTIONS
+# EXPORT'S PRIVATE FUNCTIONS ***********************************************************************
 def _configure_file_extension(file_extension):
     if file_extension == 'fbx':
         mel.eval("FBXExportTangents -v true")
@@ -244,8 +248,7 @@ def _is_child_of_world(obj):
         return False
 
 
-#***************************************************************
-# EXPORT SM OR SKM
+# EXPORT SM OR SKM *********************************************************************************
 def press_btnExportMesh():
     _, _, _, asset_dir, _ = scene_data()
     export_paths = []
@@ -298,23 +301,26 @@ def press_btnExportMesh():
             node = os.path.basename(path)
             cmds.select(node, replace=True)
             cmds.file(path, options = export_options, type = file_extension, pr=True, es=True)
+
     finally:
         cmds.undoInfo(closeChunk=True)
     cmds.undo()
 
 
-def add_remove_prefixes(action, prefix):
+def add_remove_prefixes(prefix):
     for obj in _objects_to_export():
-        if action == 'add':
-            if not prefix in obj:
-                new_name = prefix + '_' + obj
-                cmds.rename(obj, new_name)
-        if action == 'remove':
-            if prefix in obj:
-                obj_split = obj.split('_')
-                obj_split.remove(prefix)
-                new_name = '_'.join(obj_split)
-                cmds.rename(obj, new_name)
+        if not prefix in obj:
+            if not len(obj.split('_')) == 1:
+                old_name = obj
+                new_name = prefix + '_' + old_name
+                if new_name[-1].isdigit():
+                    new_name = '_'.join(new_name.split('_')[:-1])
+                cmds.rename(old_name, new_name)
+        else:
+            obj_split = obj.split('_')
+            obj_split.remove(prefix)
+            new_name = '_'.join(obj_split)
+            cmds.rename(obj, new_name)
 
 
 def fix_names():

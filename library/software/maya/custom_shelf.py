@@ -16,7 +16,7 @@ from mayafunc import ROOT_DIR
 CURRENT_DIR = os.getcwd()
 sys.path.append(CURRENT_DIR)
 
-from Git_PackForge_Pipeline.library.appdata import ICONS_PATH
+from Git_PackForge_Pipeline.library.appdata import ICON_PATH
 
 """
 icons_dir = ROOT_DIR + '\Git_PackForge_Pipeline\library\img\icons\{}.png'
@@ -29,7 +29,7 @@ def load():
     def _empty_btn():
         cmds.shelfButton(command = '', annotation = '',
                         parent = shelf_name,
-                        image = ICONS_PATH.format('empty'))
+                        image = ICON_PATH.format('empty'))
 
     if not cmds.shelfLayout(shelf_name, exists = True):
         cmds.shelfLayout(shelf_name, parent='ShelfLayout')
@@ -39,56 +39,49 @@ def load():
         cmds.shelfButton(command = base_command + 'mayafunc.press_btnIncrementSave("")',
                         annotation = 'Save scene',
                         parent = shelf_name,
-                        image = ICONS_PATH.format('btn_save'))
+                        image = ICON_PATH.format('btn_save'))
 
         cmds.shelfButton(command = base_command + 'mayafunc.press_btnIncrementSave("increment")',
                         annotation = 'Increment save scene',
                         parent = shelf_name,
-                        image = ICONS_PATH.format('btn_incrementSave'))
+                        image = ICON_PATH.format('btn_incrementSave'))
                             
         _empty_btn()
 
         cmds.shelfButton(command = base_command + 'mayafunc.press_btnExportMesh()',
                         annotation = 'Export assets',
                         parent = shelf_name,
-                        image = ICONS_PATH.format('btn_export_asset'))
+                        image = ICON_PATH.format('btn_export_asset'))
                             
 
         cmds.shelfButton(command = base_command + 'mayafunc.press_btnScreenshot()',
                         annotation = 'Take screenshot',
                         parent = shelf_name,
-                        image = ICONS_PATH.format('btn_screenshot'))
+                        image = ICON_PATH.format('btn_screenshot'))
         
         _empty_btn()
 
-        cmds.shelfButton(command = base_command + 'mayafunc.add_remove_prefixes("add", "SM")',
-                        annotation = 'Add SM',
+        cmds.shelfButton(command = base_command + 'mayafunc.add_remove_prefixes("SM")',
+                        annotation = 'Add/remove SM',
                         parent = shelf_name,
-                        image = ICONS_PATH.format('btn_addSM'))
+                        image = ICON_PATH.format('btn_SM'))
 
-        cmds.shelfButton(command = base_command + 'mayafunc.add_remove_prefixes("remove", "SM")',
-                        annotation = 'Remove SM',
+        cmds.shelfButton(command = base_command + 'mayafunc.add_remove_prefixes("BP")',
+                        annotation = 'Add/remove BP',
                         parent = shelf_name,
-                        image = ICONS_PATH.format('btn_removeSM'))
+                        image = ICON_PATH.format('btn_BP'))
 
-        _empty_btn()
-
-        cmds.shelfButton(command = base_command + 'mayafunc.add_remove_prefixes("add", "BP")',
-                        annotation = 'Add BP',
+        cmds.shelfButton(command = base_command + 'mayafunc.add_remove_prefixes("UCX")',
+                        annotation = 'Add/remove UCX',
                         parent = shelf_name,
-                        image = ICONS_PATH.format('btn_addBP'))
+                        image = ICON_PATH.format('btn_UCX'))
 
-        cmds.shelfButton(command = base_command + 'mayafunc.add_remove_prefixes("remove", "BP")',
-                        annotation = 'Remove BP',
-                        parent = shelf_name,
-                        image = ICONS_PATH.format('btn_removeBP'))
-    
         _empty_btn()
 
         cmds.shelfButton(command = base_command + 'mayafunc.fix_names()',
                         annotation = 'Rename the children of a group as the parent',
                         parent = shelf_name,
-                        image = ICONS_PATH.format('btn_fixNames'))
+                        image = ICON_PATH.format('btn_fixNames'))
 
     else:
         print(f'<<<<<<<<<<<< {shelf_name} already created')
