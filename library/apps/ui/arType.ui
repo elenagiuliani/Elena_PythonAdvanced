@@ -414,7 +414,7 @@
                <enum>QTabWidget::TabShape::Triangular</enum>
               </property>
               <property name="currentIndex">
-               <number>0</number>
+               <number>1</number>
               </property>
               <property name="elideMode">
                <enum>Qt::TextElideMode::ElideNone</enum>
@@ -460,7 +460,7 @@
                    </sizepolicy>
                   </property>
                   <property name="currentIndex">
-                   <number>0</number>
+                   <number>1</number>
                   </property>
                   <widget class="QWidget" name="page">
                    <layout class="QGridLayout" name="gridLayout_3">
@@ -554,7 +554,7 @@
                 <item>
                  <widget class="QStackedWidget" name="stkTabProps">
                   <property name="currentIndex">
-                   <number>0</number>
+                   <number>1</number>
                   </property>
                   <widget class="QWidget" name="page_3">
                    <layout class="QGridLayout" name="gridLayout_5">
@@ -636,7 +636,7 @@
                 <item>
                  <widget class="QStackedWidget" name="stkTab3Dscans">
                   <property name="currentIndex">
-                   <number>0</number>
+                   <number>1</number>
                   </property>
                   <widget class="QWidget" name="page_5">
                    <layout class="QGridLayout" name="gridLayout_8">
@@ -718,7 +718,7 @@
                 <item>
                  <widget class="QStackedWidget" name="stkTabCharacters">
                   <property name="currentIndex">
-                   <number>0</number>
+                   <number>1</number>
                   </property>
                   <widget class="QWidget" name="page_7">
                    <layout class="QGridLayout" name="gridLayout_13">

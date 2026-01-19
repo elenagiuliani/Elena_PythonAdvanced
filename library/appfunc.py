@@ -53,7 +53,7 @@ def all_directories(path, proj_type, marketplace_name):
                         ue_directories.append(ue_path)
             else:
                 for name in files_directories_rel:
-                    files_directories.append(files_base + name)
+                    files_directories.append(files_base + category + name)
                 for folder in ue_subfolders:
                     ue_directories.append(ue_base + folder)
 
@@ -191,7 +191,7 @@ def press_open_scene(department, scene_path, workspace_path=None):
     if scene_path:
         scene_path = os.path.normpath(scene_path)
 
-    # open substance painter
+    # open substance painter or marvelous designer
     if 'texturing' in department or 'clothing' in department:
         lines[35] = (f'start "" "{scene_path}" ')
 
@@ -203,7 +203,7 @@ def press_open_scene(department, scene_path, workspace_path=None):
 
             with open(yml_project_path, 'r', encoding='utf-8') as stream:
                 project_data = yaml.load(stream)
-                selected_tab     = project_data['selected_tab']
+                selected_tab     = project_data['for_previous_tab']
 
             workspace_path = os.path.normpath(workspace_path)
 
@@ -270,7 +270,7 @@ def _create_maya_workspace(workspace_path):
         os.makedirs(workspace_path)
     
     workspace_mel_path = workspace_path + '/' + 'workspace.mel'
-    print(f' workspace_path  {workspace_path}')
+    print(f'<<<<<<<< workspace_path  {workspace_path}')
 
     # create subfolders
     for folder in maya_folders:
@@ -292,7 +292,7 @@ def _create_maya_workspace(workspace_path):
                                     workspace -fr "scenes" "{workspace_path}/scenes";
                                     '''
         
-        with open(workspace_mel_path, 'w') as f:
-            f.write(workspace_mel_content)
+        with open(workspace_mel_path, 'w') as outfile:
+            outfile.write(workspace_mel_content)
 
-        print(f'<<<<<<<<<<<<<<< Maya workspace created: {workspace_mel_path}')
+        print(f'<<<<<<<<< Maya workspace created: {workspace_mel_path}')

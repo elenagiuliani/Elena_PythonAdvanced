@@ -14,12 +14,13 @@ import sys
 from Qt import QtWidgets, QtGui, QtCompat
 
 from arType import ArType
-from arUtil import ICONS_PATH, APPS_DIR
+from arUtil import ICON_PATH, APPS_DIR
 
 from Git_PackForge_Pipeline.library.apps.ui.stylesheet import get_stylesheet, PALETTE
 from Git_PackForge_Pipeline.library.appfunc import ue_meshes_data
 
 TITLE = os.path.splitext(os.path.basename(__file__))[0]
+
 
 
 class ArFiles(ArType):
@@ -41,12 +42,13 @@ class ArFiles(ArType):
 
         self.instances = [(self.wgLoadArch, 'architectural'), (self.wgLoadProps, 'props'), (self.wgLoadLamps, 'lamps')]
         # attribute 'category' for differentiating the three tabs when populating them with scenes and assets
+
         for instance, category in self.instances:
             self.set_ui_when_ue_meshes(instance, category)
 
             # ICONS
-            instance.btnOpenFilesFolder.setIcon(QtGui.QPixmap(ICONS_PATH.format('open_folder')))
-            instance.btnAddScene.setIcon(QtGui.QPixmap(ICONS_PATH.format('plus_icon')))
+            instance.btnOpenFilesFolder.setIcon(QtGui.QPixmap(ICON_PATH.format('open_folder')))
+            instance.btnAddScene.setIcon(QtGui.QPixmap(ICON_PATH.format('plus_icon')))
 
             # SIGNALS
             instance.btnAssets.clicked.connect(lambda checked, inst=instance: self.press_btnAssetsFiles('assets', inst))
@@ -97,6 +99,7 @@ class ArFiles(ArType):
             instance.btnAddScene.hide()
             instance.listDepartments.hide()
             instance.wgtSpacerAssets.show()
+            instance.wgtFilesCommands.hide()
             instance.btnAssets.setChecked(True)
             instance.btnFiles.setChecked(False)
             instance.btnOpenLastVersionScene.hide()
@@ -107,6 +110,7 @@ class ArFiles(ArType):
             instance.btnAddScene.show()
             instance.listDepartments.show()
             instance.wgtSpacerAssets.hide()
+            instance.wgtFilesCommands.show()
             instance.btnFiles.setChecked(True)
             instance.btnAssets.setChecked(False)
             instance.btnOpenLastVersionScene.show()

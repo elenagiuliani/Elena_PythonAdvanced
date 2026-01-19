@@ -11,7 +11,6 @@ email    : elenagiuliani94@outlook.it
 """
 import os
 import sys
-import time
 from Qt import QtWidgets, QtGui, QtCompat, QtCore
 
 from ruamel.yaml import YAML
@@ -21,7 +20,7 @@ yaml.preserve_quotes = True
 from arUtil import ArUtil, APPS_DIR
 
 from Git_PackForge_Pipeline.library.apps.ui.stylesheet import get_stylesheet
-from Git_PackForge_Pipeline.library.appdata import yml_project_path, ENV_CATEGORIES, FILES_DEPARTMENTS
+from Git_PackForge_Pipeline.library.appdata import yml_project_path, ENV_CATEGORIES, FILES_DEPARTMENTS, restart_app_bat
 from Git_PackForge_Pipeline.library.appfunc import get_directory, press_open_scene
 
 TITLE = os.path.splitext(os.path.basename(__file__))[0]
@@ -54,16 +53,12 @@ class ArScene(ArUtil):
     def display_items(self):
         with open(yml_project_path, 'r', encoding='utf-8') as stream:
             project_data = yaml.load(stream)
-        selected_tab     = project_data['selected_tab']
+        selected_tab     = project_data['for_previous_tab']
 
-        if self.project_type == "Environment":
-            directory = self.project_root + '/files/' + selected_tab
-        else:
-            directory = self.project_root + '/files'
-
+        directory = self.project_root + '/files/' + selected_tab
         directories = []
         for department, _, _ in FILES_DEPARTMENTS:
-            directories.append(directory[0] + '/' + department)
+            directories.append(directory + '/' + department)
 
         # deactivate the lines of the combo box that have files
         combo_model = self.wgScene.cbxChooseDepartment.model()
@@ -81,7 +76,7 @@ class ArScene(ArUtil):
 
         with open(yml_project_path, 'r', encoding='utf-8') as stream:
             project_data = yaml.load(stream)
-        selected_tab     = project_data['selected_tab']
+        selected_tab     = project_data['for_previous_tab']
 
         for category in ENV_CATEGORIES:
             if selected_tab == category:
@@ -89,8 +84,14 @@ class ArScene(ArUtil):
                     if department in current_text:
                         # texturing
                         if FILES_DEPARTMENTS[5][0] in current_text:
-                            project_path = get_directory('files', selected_tab, 'texturing')
+                            project_path = get_directory('files', selected_tab, FILES_DEPARTMENTS[5][0])
                             press_open_scene(current_text, r'C:\Program Files\Adobe\Adobe Substance 3D Painter\Adobe Substance 3D Painter.exe')
+
+                        # clothing
+                        if FILES_DEPARTMENTS[2][0] in current_text:
+                            project_path = get_directory('files', selected_tab, FILES_DEPARTMENTS[2][0])
+                            press_open_scene(current_text, r'C:\Program Files\Marvelous Designer Enterprise Network Offline\MarvelousDesigner_Enterprise_Offline.exe')
+
                         # maya
                         else:
                             workspace_base = get_directory('files', selected_tab, department)
@@ -100,9 +101,8 @@ class ArScene(ArUtil):
                                 project_path = os.path.join(workspace_base, f'{self.files_name}_{dept_short}_project')
                             press_open_scene(current_text, '', project_path)
                             print(f'workspace_base    {workspace_base}')
-        # wait the DCC loads before restarting the app
-        time.sleep(5)
         app.quit()
+
 
 
 if __name__ == "__main__":

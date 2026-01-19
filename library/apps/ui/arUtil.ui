@@ -97,7 +97,7 @@
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">QWidget { border: none;}</string>
+         <string notr="true"/>
         </property>
         <layout class="QGridLayout" name="gridLayout_2">
          <property name="leftMargin">
@@ -427,7 +427,6 @@ padding-top: 5px;</string>
 }
 
 QPushButton:hover {
-    /*color: rgb(151, 169, 0);*/
     background-color: transparent;
 	text-decoration: underline;
 }

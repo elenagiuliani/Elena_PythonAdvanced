@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="images">
+    <file>icons/btn_incrementSave.png</file>
+    <file>icons/btn_save.png</file>
     <file>icons/btn_reload_app.png</file>
     <file>icons/arrow_full_right.png</file>
     <file>icons/folder_close.png</file>

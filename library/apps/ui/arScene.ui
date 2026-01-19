@@ -29,8 +29,7 @@
    <string>Pixels and Crafts Pipeline</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">text-align: center;
-/*padding: 9px;</string>
+   <string notr="true">text-align: center;</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
@@ -232,7 +231,7 @@
               </sizepolicy>
              </property>
              <property name="styleSheet">
-              <string notr="true">text-align: center;</string>
+              <string notr="true"/>
              </property>
              <property name="text">
               <string>Create</string>

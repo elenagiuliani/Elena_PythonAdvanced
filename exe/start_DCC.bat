@@ -27,10 +27,10 @@ set "XBMLANGPATH=%IMG_PATH%;%XBMLANGPATH%"
 
 :: SHELF
 set "LOAD_CUSTOM_SHELF=1"
-echo "load custom shelf:  %LOAD_CUSTOM_SHELF%"
+
 
 :: CALL MAYA
 set "MAYA_DIR=C:\Program Files\Autodesk\Maya%MAYA_VERSION%"
 :: ***************************************************************
 
-start "" "%MAYA_DIR%\bin\maya.exe" -file "F:\3D_Projects\5_PixelsAndCrafts\Environment\E_25_001__Brandon_room\files\Architectural\modeling\Brandon_architectural_model_project\scenes\Brandon_architectural_model_v001.ma"
+start "" "%MAYA_DIR%\bin\maya.exe" -file "F:\3D_Projects\5_PixelsAndCrafts\Environment\E_25_001__Brandon_room\files\Props\modeling\Brandon_props_model_project\scenes\Brandon_props_model_v004.ma"

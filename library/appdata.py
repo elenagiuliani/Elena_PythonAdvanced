@@ -14,7 +14,7 @@ import subprocess
 LIBRARY_PATH = os.path.dirname(__file__)
 ROOT_PATH    = os.path.dirname(LIBRARY_PATH)
 APPS_DIR     = LIBRARY_PATH + '/apps'
-ICONS_PATH   = LIBRARY_PATH + '/img/icons/{}.png'
+ICON_PATH   = LIBRARY_PATH + '/img/icons/{}.png'
 IMG_PATH     = LIBRARY_PATH + '/img/{}.png'
 MAYA_PYTHON  = r'C:\\Program Files\\Autodesk\\Maya2022\\bin\\mayapy.exe'
 
@@ -72,7 +72,7 @@ def load_config_data():
     loaded_project   = project_data['loaded_project']
     files_name       = project_data['files_name']
     marketplace_name = project_data['marketplace_name']
-    selected_tab     = project_data['selected_tab']
+    selected_tab     = project_data['for_previous_tab']
     
     # FIRST APP START
     if loaded_project == '':

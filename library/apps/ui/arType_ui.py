@@ -612,11 +612,11 @@ class Ui_arType(object):
 
         self.retranslateUi(arType)
 
-        self.tabWidget.setCurrentIndex(0)
-        self.stkTabArch.setCurrentIndex(0)
-        self.stkTabProps.setCurrentIndex(0)
-        self.stkTab3Dscans.setCurrentIndex(0)
-        self.stkTabCharacters.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(1)
+        self.stkTabArch.setCurrentIndex(1)
+        self.stkTabProps.setCurrentIndex(1)
+        self.stkTab3Dscans.setCurrentIndex(1)
+        self.stkTabCharacters.setCurrentIndex(1)
 
 
         QMetaObject.connectSlotsByName(arType)

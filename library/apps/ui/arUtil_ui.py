@@ -61,7 +61,7 @@ class Ui_arUtil(object):
         sizePolicy2.setHeightForWidth(self.main_widget.sizePolicy().hasHeightForWidth())
         self.main_widget.setSizePolicy(sizePolicy2)
         self.main_widget.setMaximumSize(QSize(16777215, 40))
-        self.main_widget.setStyleSheet(u"QWidget { border: none;}")
+        self.main_widget.setStyleSheet(u"")
         self.gridLayout_2 = QGridLayout(self.main_widget)
         self.gridLayout_2.setObjectName(u"gridLayout_2")
         self.gridLayout_2.setContentsMargins(9, 0, 9, 0)
@@ -197,7 +197,6 @@ class Ui_arUtil(object):
 "}\n"
 "\n"
 "QPushButton:hover {\n"
-"    /*color: rgb(151, 169, 0);*/\n"
 "    background-color: transparent;\n"
 "	text-decoration: underline;\n"
 "}\n"

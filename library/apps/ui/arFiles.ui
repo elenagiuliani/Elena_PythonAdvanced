@@ -6,18 +6,18 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>621</width>
-    <height>417</height>
+    <width>617</width>
+    <height>437</height>
    </rect>
   </property>
   <property name="sizePolicy">
-   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+   <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>Pixels and Crafts Pipeline</string>
+   <string notr="true">Pixels and Crafts Pipeline</string>
   </property>
   <property name="styleSheet">
    <string notr="true"/>
@@ -68,7 +68,7 @@
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true">QPushButton {padding: 3px 18px;}
+        <string notr="true">QPushButton {padding: 4px 18px;}
 
 </string>
        </property>
@@ -97,13 +97,11 @@
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">QPushButton {
-    border-top-left-radius: 6px;
-    border-bottom-left-radius: 6px;
-    border-top-right-radius: 0px;
-    border-bottom-right-radius: 0px;
-
-}</string>
+           <string notr="true">border-top-left-radius: 6px;
+border-bottom-left-radius: 6px;
+border-top-right-radius: 0px;
+border-bottom-right-radius: 0px;
+</string>
           </property>
           <property name="text">
            <string>Assets</string>
@@ -125,12 +123,10 @@
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">
-    border-top-left-radius: 0px;
-    border-bottom-left-radius: 0px;
-    border-top-right-radius: 6px;
-    border-bottom-right-radius: 6px;
-</string>
+           <string notr="true">border-top-left-radius: 0px;
+border-bottom-left-radius: 0px;
+border-top-right-radius: 6px;
+border-bottom-right-radius: 6px;</string>
           </property>
           <property name="text">
            <string>Files</string>
@@ -169,6 +165,9 @@
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
+     <property name="sizeConstraint">
+      <enum>QLayout::SizeConstraint::SetDefaultConstraint</enum>
+     </property>
      <item>
       <widget class="QWidget" name="widget" native="true">
        <property name="sizePolicy">
@@ -437,9 +436,15 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>243</width>
-          <height>215</height>
+          <width>266</width>
+          <height>317</height>
          </rect>
+        </property>
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
         </property>
         <layout class="QGridLayout" name="gridLayout_17">
          <property name="leftMargin">
@@ -556,6 +561,26 @@
                 <property name="verticalSpacing">
                  <number>6</number>
                 </property>
+                <item row="2" column="0">
+                 <spacer name="verticalSpacer_2">
+                  <property name="orientation">
+                   <enum>Qt::Orientation::Vertical</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item row="1" column="0">
+                 <layout class="QVBoxLayout" name="layFilesScanning">
+                  <property name="spacing">
+                   <number>0</number>
+                  </property>
+                 </layout>
+                </item>
                 <item row="0" column="0">
                  <widget class="QLabel" name="label_2">
                   <property name="sizePolicy">
@@ -575,30 +600,20 @@
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="0">
-                 <layout class="QVBoxLayout" name="layFilesScanning"/>
-                </item>
-                <item row="2" column="0">
-                 <spacer name="verticalSpacer_2">
-                  <property name="orientation">
-                   <enum>Qt::Orientation::Vertical</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>20</width>
-                    <height>40</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
                </layout>
               </widget>
               <widget class="QWidget" name="page_1_modeling">
                <property name="sizePolicy">
-                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>0</height>
+                </size>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_9">
                 <property name="leftMargin">
@@ -640,7 +655,7 @@
                 <item>
                  <layout class="QVBoxLayout" name="layFilesModeling">
                   <property name="spacing">
-                   <number>6</number>
+                   <number>0</number>
                   </property>
                  </layout>
                 </item>
@@ -660,6 +675,12 @@
                </layout>
               </widget>
               <widget class="QWidget" name="page_2_clothing">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <layout class="QGridLayout" name="gridLayout_2">
                 <property name="leftMargin">
                  <number>5</number>
@@ -673,6 +694,19 @@
                 <property name="bottomMargin">
                  <number>5</number>
                 </property>
+                <item row="2" column="0">
+                 <spacer name="verticalSpacer_3">
+                  <property name="orientation">
+                   <enum>Qt::Orientation::Vertical</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
                 <item row="0" column="0">
                  <widget class="QLabel" name="label_3">
                   <property name="sizePolicy">
@@ -695,26 +729,19 @@
                 <item row="1" column="0">
                  <layout class="QVBoxLayout" name="layFilesClothing">
                   <property name="spacing">
-                   <number>6</number>
+                   <number>0</number>
                   </property>
                  </layout>
-                </item>
-                <item row="2" column="0">
-                 <spacer name="verticalSpacer_3">
-                  <property name="orientation">
-                   <enum>Qt::Orientation::Vertical</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>20</width>
-                    <height>40</height>
-                   </size>
-                  </property>
-                 </spacer>
                 </item>
                </layout>
               </widget>
               <widget class="QWidget" name="page_3_sculpting">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <layout class="QVBoxLayout" name="verticalLayout_3">
                 <property name="leftMargin">
                  <number>5</number>
@@ -753,7 +780,11 @@
                  </widget>
                 </item>
                 <item>
-                 <layout class="QVBoxLayout" name="layFilesSculpting"/>
+                 <layout class="QVBoxLayout" name="layFilesSculpting">
+                  <property name="spacing">
+                   <number>0</number>
+                  </property>
+                 </layout>
                 </item>
                 <item>
                  <spacer name="verticalSpacer">
@@ -772,7 +803,7 @@
               </widget>
               <widget class="QWidget" name="page_4_baking">
                <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
@@ -793,6 +824,26 @@
                 <property name="horizontalSpacing">
                  <number>5</number>
                 </property>
+                <item row="1" column="0">
+                 <layout class="QVBoxLayout" name="layFilesBaking">
+                  <property name="spacing">
+                   <number>0</number>
+                  </property>
+                 </layout>
+                </item>
+                <item row="2" column="0">
+                 <spacer name="verticalSpacer_20">
+                  <property name="orientation">
+                   <enum>Qt::Orientation::Vertical</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
                 <item row="0" column="0">
                  <widget class="QLabel" name="label_16">
                   <property name="sizePolicy">
@@ -812,27 +863,11 @@
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="0">
-                 <layout class="QVBoxLayout" name="layFilesBaking"/>
-                </item>
-                <item row="2" column="0">
-                 <spacer name="verticalSpacer_20">
-                  <property name="orientation">
-                   <enum>Qt::Orientation::Vertical</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>20</width>
-                    <height>40</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
                </layout>
               </widget>
               <widget class="QWidget" name="page_5_texturing">
                <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
@@ -853,6 +888,19 @@
                 <property name="horizontalSpacing">
                  <number>5</number>
                 </property>
+                <item row="2" column="0">
+                 <spacer name="verticalSpacer_21">
+                  <property name="orientation">
+                   <enum>Qt::Orientation::Vertical</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
                 <item row="0" column="0">
                  <widget class="QLabel" name="label_17">
                   <property name="sizePolicy">
@@ -874,29 +922,19 @@
                 </item>
                 <item row="1" column="0">
                  <layout class="QVBoxLayout" name="layFilesTexturing">
+                  <property name="spacing">
+                   <number>0</number>
+                  </property>
                   <property name="sizeConstraint">
                    <enum>QLayout::SizeConstraint::SetDefaultConstraint</enum>
                   </property>
                  </layout>
                 </item>
-                <item row="2" column="0">
-                 <spacer name="verticalSpacer_21">
-                  <property name="orientation">
-                   <enum>Qt::Orientation::Vertical</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>20</width>
-                    <height>40</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
                </layout>
               </widget>
               <widget class="QWidget" name="page_6_groom">
                <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
@@ -917,6 +955,26 @@
                 <property name="horizontalSpacing">
                  <number>5</number>
                 </property>
+                <item row="1" column="0">
+                 <layout class="QVBoxLayout" name="layFilesGroom">
+                  <property name="spacing">
+                   <number>0</number>
+                  </property>
+                 </layout>
+                </item>
+                <item row="2" column="0">
+                 <spacer name="verticalSpacer_22">
+                  <property name="orientation">
+                   <enum>Qt::Orientation::Vertical</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
                 <item row="0" column="0">
                  <widget class="QLabel" name="label_18">
                   <property name="sizePolicy">
@@ -942,27 +1000,11 @@
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="0">
-                 <layout class="QVBoxLayout" name="layFilesGroom"/>
-                </item>
-                <item row="2" column="0">
-                 <spacer name="verticalSpacer_22">
-                  <property name="orientation">
-                   <enum>Qt::Orientation::Vertical</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>20</width>
-                    <height>40</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
                </layout>
               </widget>
               <widget class="QWidget" name="page_7_rigging">
                <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
@@ -983,6 +1025,26 @@
                 <property name="horizontalSpacing">
                  <number>5</number>
                 </property>
+                <item row="1" column="0">
+                 <layout class="QVBoxLayout" name="layFilesRigging">
+                  <property name="spacing">
+                   <number>0</number>
+                  </property>
+                 </layout>
+                </item>
+                <item row="2" column="0">
+                 <spacer name="verticalSpacer_23">
+                  <property name="orientation">
+                   <enum>Qt::Orientation::Vertical</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
                 <item row="0" column="0">
                  <widget class="QLabel" name="label_19">
                   <property name="sizePolicy">
@@ -1002,27 +1064,11 @@
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="0">
-                 <layout class="QVBoxLayout" name="layFilesRigging"/>
-                </item>
-                <item row="2" column="0">
-                 <spacer name="verticalSpacer_23">
-                  <property name="orientation">
-                   <enum>Qt::Orientation::Vertical</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>20</width>
-                    <height>40</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
                </layout>
               </widget>
               <widget class="QWidget" name="page_8_pose">
                <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
@@ -1043,8 +1089,18 @@
                 <property name="horizontalSpacing">
                  <number>5</number>
                 </property>
-                <item row="1" column="0">
-                 <layout class="QVBoxLayout" name="layFilesPose"/>
+                <item row="2" column="0">
+                 <spacer name="verticalSpacer_24">
+                  <property name="orientation">
+                   <enum>Qt::Orientation::Vertical</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                 </spacer>
                 </item>
                 <item row="0" column="0">
                  <widget class="QLabel" name="label_20">
@@ -1070,24 +1126,18 @@
                   </property>
                  </widget>
                 </item>
-                <item row="2" column="0">
-                 <spacer name="verticalSpacer_24">
-                  <property name="orientation">
-                   <enum>Qt::Orientation::Vertical</enum>
+                <item row="1" column="0">
+                 <layout class="QVBoxLayout" name="layFilesPose">
+                  <property name="spacing">
+                   <number>0</number>
                   </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>20</width>
-                    <height>40</height>
-                   </size>
-                  </property>
-                 </spacer>
+                 </layout>
                 </item>
                </layout>
               </widget>
               <widget class="QWidget" name="page_9_animation">
                <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
@@ -1108,22 +1158,6 @@
                 <property name="horizontalSpacing">
                  <number>5</number>
                 </property>
-                <item row="1" column="0">
-                 <layout class="QVBoxLayout" name="layFilesAnimation"/>
-                </item>
-                <item row="2" column="0">
-                 <spacer name="verticalSpacer_25">
-                  <property name="orientation">
-                   <enum>Qt::Orientation::Vertical</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>20</width>
-                    <height>40</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
                 <item row="0" column="0">
                  <widget class="QLabel" name="label_21">
                   <property name="sizePolicy">
@@ -1147,6 +1181,26 @@
                    <string>Animation files</string>
                   </property>
                  </widget>
+                </item>
+                <item row="2" column="0">
+                 <spacer name="verticalSpacer_25">
+                  <property name="orientation">
+                   <enum>Qt::Orientation::Vertical</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item row="1" column="0">
+                 <layout class="QVBoxLayout" name="layFilesAnimation">
+                  <property name="spacing">
+                   <number>0</number>
+                  </property>
+                 </layout>
                 </item>
                </layout>
               </widget>
@@ -1176,12 +1230,194 @@
       </widget>
      </item>
      <item>
+      <widget class="QWidget" name="wgtFilesCommands" native="true">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>50</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="mouseTracking">
+        <bool>false</bool>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_5">
+        <property name="spacing">
+         <number>4</number>
+        </property>
+        <property name="leftMargin">
+         <number>4</number>
+        </property>
+        <property name="topMargin">
+         <number>24</number>
+        </property>
+        <property name="rightMargin">
+         <number>4</number>
+        </property>
+        <property name="bottomMargin">
+         <number>4</number>
+        </property>
+        <item>
+         <widget class="QPushButton" name="btnOpenScene">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>40</width>
+            <height>40</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>0</width>
+            <height>40</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>Open selected scene</string>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="text">
+           <string>open</string>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>25</width>
+            <height>25</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnSave">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>Save selected scene if open</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset resource="../../img/app_imgs.qrc">
+            <normaloff>:/images/icons/btn_save.png</normaloff>:/images/icons/btn_save.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>25</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="autoDefault">
+           <bool>false</bool>
+          </property>
+          <property name="default">
+           <bool>false</bool>
+          </property>
+          <property name="flat">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnIncrementSave">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="toolTip">
+           <string>Increment save selected scene if open</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset resource="../../img/app_imgs.qrc">
+            <normaloff>:/images/icons/btn_incrementSave.png</normaloff>:/images/icons/btn_incrementSave.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>25</width>
+            <height>30</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnOpenToDCCfolder">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="toolTip">
+           <string>Open meshes folder</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset resource="../../img/app_imgs.qrc">
+            <normaloff>:/images/icons/open_folder.png</normaloff>:/images/icons/open_folder.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>25</width>
+            <height>30</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_4">
+          <property name="orientation">
+           <enum>Qt::Orientation::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
       <widget class="QWidget" name="wgtSpacerAssets" native="true">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
        </property>
       </widget>
      </item>
@@ -1233,7 +1469,7 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>598</width>
+           <width>594</width>
            <height>300</height>
           </rect>
          </property>

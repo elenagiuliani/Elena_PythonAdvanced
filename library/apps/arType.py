@@ -14,14 +14,11 @@ from datetime import datetime
 
 from Qt import QtWidgets, QtGui, QtCompat, QtCore
 
-from arUtil import ArUtil, APPS_DIR, ICONS_PATH
+from arUtil import ArUtil, APPS_DIR, ICON_PATH
 
 from Git_PackForge_Pipeline.library.apps.ui.stylesheet import get_stylesheet
 from Git_PackForge_Pipeline.library.appfunc import ue_meshes_data, marketplace_directories, all_directories, normalize_paths, get_directory
 from Git_PackForge_Pipeline.library.appdata import yml_project_path, ENV_CATEGORIES, load_config_data, PROJECTS_DATA
-
-(projects_root, _, loaded_project, loaded_project_path, loaded_project_name, project_type, 
- files_name, marketplace_name, selected_tab, screenshot_dir_base, project_path) = load_config_data()
 
 from ruamel.yaml import YAML
 yaml = YAML()
@@ -31,6 +28,7 @@ with open(yml_project_path, 'r', encoding='utf-8') as stream:
     project_data = yaml.load(stream)
 
 TITLE = os.path.splitext(os.path.basename(__file__))[0]
+
 
 
 class ArType(ArUtil):
@@ -45,7 +43,7 @@ class ArType(ArUtil):
 
         with open(yml_project_path, 'r', encoding='utf-8') as stream:
             project_data = yaml.load(stream)
-        previous_tab = project_data['selected_tab']
+        previous_tab = project_data['for_previous_tab']
         #***************************************************************
         # SIGNALS
         self.wgType.stkTabArch.setCurrentIndex(0)
@@ -56,7 +54,6 @@ class ArType(ArUtil):
         # UI
         self.open_Main()
         self.display_projects()
-        self.display_assets_number(self.selected_tab)
 
         self.wgType.wgtSpacer.hide()
         self.wgType.wgtSettings.hide()
@@ -67,6 +64,8 @@ class ArType(ArUtil):
                 self.wgType.tabWidget.setCurrentIndex(index)
                 break
         # update at user interaction
+        
+        self.on_tab_changed(self.wgType.tabWidget.currentIndex())
         self.wgType.tabWidget.currentChanged.connect(lambda index: self.on_tab_changed(index))
         
 
@@ -134,8 +133,6 @@ class ArType(ArUtil):
         with open(yml_data_path, 'w') as outfile:
             yaml.dump(yml_data, outfile)
 
-        self.press_btnReloadApp(app)
-
 
     """MANAGE PROJECTS SECTION"""
     def press_btnChangeRootPath(self, app):
@@ -156,8 +153,8 @@ class ArType(ArUtil):
                 yaml.dump(project_data, outfile) 
 
         else:
-            self.wgType.linRootPath.setText(projects_root)
-        self.press_btnReloadApp(app)
+            self.wgType.linRootPath.setText(self.projects_root)
+        self.press_btnReloadApp()
 
 
     def press_btnChangeMarketplaceName(self):
@@ -168,7 +165,7 @@ class ArType(ArUtil):
         new_marketplace_name = self.wgType.linMarketplaceName.text().replace(' ', '_')
         project_data["marketplace_name"] = new_marketplace_name
 
-        new_marketplace_directories = marketplace_directories(new_marketplace_name, loaded_project_path)
+        new_marketplace_directories = marketplace_directories(new_marketplace_name, self.loaded_project_path)
         for directory in new_marketplace_directories:
             os.makedirs(directory)
 
@@ -197,7 +194,7 @@ class ArType(ArUtil):
                 self.selected_tab == "Environment"
             if self.selected_tab == "Lamps":
                 self.selected_tab == "3DScans"
-            project_path = projects_root + '/' + self.selected_tab + '/' + new_selected_project 
+            project_path = self.projects_root + '/' + self.selected_tab + '/' + new_selected_project 
 
             # find files name
             yml_data_path = project_path + '/files/data.yml'
@@ -224,7 +221,7 @@ class ArType(ArUtil):
             self.wgHeader.btnOpenProjectFolder.clicked.connect(lambda p=project_path: self.press_btnOpenProjectFolder(p))
             self.wgType.linMarketplaceName.setText(marketplace_name)
 
-        self.press_btnReloadApp(app)
+        self.press_btnReloadApp()
         return
 
 
@@ -255,8 +252,8 @@ class ArType(ArUtil):
                 layout_widget.addItem(project)
 
                 # select loaded project at app start
-                if project == loaded_project:
-                    item = layout_widget.findItems(loaded_project, QtCore.Qt.MatchExactly)
+                if project == self.loaded_project:
+                    item = layout_widget.findItems(self.loaded_project, QtCore.Qt.MatchExactly)
                     layout_widget.setCurrentItem(item[0])
 
 
@@ -267,22 +264,22 @@ class ArType(ArUtil):
         self.wgHeader.btnCreateProjectMenu.setChecked(False) 
         self.wgHeader.btnManageProjectsMenu.setEnabled(True)
         self.wgHeader.btnManageProjectsMenu.setChecked(False) 
-        self.wgHeader.btnBack.setIcon(QtGui.QPixmap(ICONS_PATH.format('btn_back_disabled')))
+        self.wgHeader.btnBack.setIcon(QtGui.QPixmap(ICON_PATH.format('btn_back_disabled')))
 
         # set tabs visibility
-        if project_type == 'Environment':
+        if self.project_type == 'Environment':
             self.wgType.tabWidget.setTabVisible(0, True)
             self.wgType.tabWidget.setTabVisible(1, True)
             self.wgType.tabWidget.setTabVisible(2, True)
             self.wgType.tabWidget.setTabVisible(3, False)
 
-        elif project_type == 'Props' or project_type == '3Dscans':
+        elif self.project_type == 'Props' or self.project_type == '3Dscans':
             self.wgType.tabWidget.setTabVisible(0, False)
             self.wgType.tabWidget.setTabVisible(1, True)
             self.wgType.tabWidget.setTabVisible(2, False)
             self.wgType.tabWidget.setTabVisible(3, False)
 
-        elif project_type == 'Characters':
+        elif self.project_type == 'Characters':
             self.wgType.tabWidget.setTabVisible(0, False)
             self.wgType.tabWidget.setTabVisible(1, False)
             self.wgType.tabWidget.setTabVisible(2, False)
@@ -316,7 +313,7 @@ class ArType(ArUtil):
             # SIGNALS
             self.wgType.btnProject.clicked.connect(lambda checked, app=app: self.press_btnProject(app))
             self.wgHeader.btnBack.clicked.connect(self.open_Main)
-            self.update_project_yml_selected_tab(self.selected_tab)
+            #self.update_project_yml_selected_tab(self.selected_tab)
 
             # UI
             self.wgType.wgtSettings.show()
@@ -324,7 +321,7 @@ class ArType(ArUtil):
             self.wgHeader.btnBack.setEnabled(True)
             self.wgHeader.btnCreateProjectMenu.setEnabled(False)
             self.wgHeader.btnCreateProjectMenu.setChecked(False)
-            self.wgHeader.btnBack.setIcon(QtGui.QPixmap(ICONS_PATH.format('btn_back')))
+            self.wgHeader.btnBack.setIcon(QtGui.QPixmap(ICON_PATH.format('btn_back')))
 
             for index, (proj_type, _) in enumerate(PROJECTS_DATA.values()):
                 self.wgType.tabWidget.setTabText(index, proj_type)
@@ -339,8 +336,8 @@ class ArType(ArUtil):
             self.wgType.lblMarketplaceName.setText('Marketplace folder name:')
             self.wgType.btnProject.setText('Set project')
 
-            self.wgType.linRootPath.setText(projects_root)
-            self.wgType.linMarketplaceName.setText(marketplace_name)
+            self.wgType.linRootPath.setText(self.projects_root)
+            self.wgType.linMarketplaceName.setText(self.marketplace_name)
 
             self.wgType.wgtSpacer.hide()
             self.wgType.layDetails.hide()
@@ -363,7 +360,7 @@ class ArType(ArUtil):
             self.wgHeader.btnBack.setEnabled(True)
             self.wgHeader.btnManageProjectsMenu.setEnabled(False)
             self.wgHeader.btnManageProjectsMenu.setChecked(False)
-            self.wgHeader.btnBack.setIcon(QtGui.QPixmap(ICONS_PATH.format('btn_back')))
+            self.wgHeader.btnBack.setIcon(QtGui.QPixmap(ICON_PATH.format('btn_back')))
 
             self.wgType.lblRootPath.setText('Name of the project:')
             self.wgType.lblMarketplaceName.setText('Files name:')
@@ -432,13 +429,14 @@ class ArType(ArUtil):
 
     #*********************************************************************************************************************************
     # YAML
+
     def update_project_yml_selected_tab(self, tab_text):
-        project_data["selected_tab"] = tab_text
+        project_data["for_previous_tab"] = tab_text
 
         # update the yaml file
         with open(yml_project_path, 'w') as outfile:
             yaml.dump(project_data, outfile)            
-
+            
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)

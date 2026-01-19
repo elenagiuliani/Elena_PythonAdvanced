@@ -32,8 +32,7 @@ class Ui_arScene(object):
         sizePolicy.setHeightForWidth(arScene.sizePolicy().hasHeightForWidth())
         arScene.setSizePolicy(sizePolicy)
         arScene.setMinimumSize(QSize(0, 0))
-        arScene.setStyleSheet(u"text-align: center;\n"
-"/*padding: 9px;")
+        arScene.setStyleSheet(u"text-align: center;")
         self.verticalLayout = QVBoxLayout(arScene)
         self.verticalLayout.setSpacing(0)
         self.verticalLayout.setObjectName(u"verticalLayout")
@@ -105,7 +104,7 @@ class Ui_arScene(object):
         self.btnCreateScene.setObjectName(u"btnCreateScene")
         sizePolicy1.setHeightForWidth(self.btnCreateScene.sizePolicy().hasHeightForWidth())
         self.btnCreateScene.setSizePolicy(sizePolicy1)
-        self.btnCreateScene.setStyleSheet(u"text-align: center;")
+        self.btnCreateScene.setStyleSheet(u"")
 
         self.verticalLayout_3.addWidget(self.btnCreateScene)
 
