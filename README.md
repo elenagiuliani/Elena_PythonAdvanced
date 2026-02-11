@@ -1,4 +1,4 @@
-PackForge is a pipeline application primarily intended for creating of 3D digital products to sell on marketplaces such as CgTrader or Fab, but also for personal projects or portfolios.
+PackForge is a pipeline application primarily intended for creating 3D digital products to sell on marketplaces such as CgTrader or Fab, but also for personal projects or portfolios.
 
 It consists of a desktop application and a Maya shelf.
 The desktop application provides an overview of the progression of the project and is where DCC scenes can be opened.
